@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     const jwt = request.cookies.get("gdi_cookie");
 
     if (jwt === undefined) {
-      return NextResponse.redirect(new URL("/auth", request.url));
+      return NextResponse.redirect(new URL("/", request.url));
     }
 
     await jwtVerify(
@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     );
     return NextResponse.next();
   } catch (error) {
-    return NextResponse.redirect(new URL("/auth", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 

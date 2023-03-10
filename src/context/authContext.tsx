@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{
           user,
         });
       } else {
-        router.push("/auth");
+        router.push("/");
       }
     };
 
@@ -90,7 +90,7 @@ export const AuthProvider: React.FC<{
       isLoggedIn: false,
       user: null,
     });
-    router.push("/auth");
+    router.push("/");
   };
 
   return (
