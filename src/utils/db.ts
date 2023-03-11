@@ -24,8 +24,6 @@ async function connect() {
     process.env.NODE_ENV === "production" ? urlProd : urlDev
   );
 
-  console.log({ db: process.env.NODE_ENV === "production" ? urlProd : urlDev });
-
   console.log({ connection });
   console.log("new connection");
   connection.isConnected = db.connections[0].readyState;
