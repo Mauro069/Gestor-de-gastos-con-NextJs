@@ -1,12 +1,16 @@
-import { useAuth } from "@/hooks/useAuth";
+import useReports from "@/hooks/useReports";
 import styles from "../styles/homePage.module.scss";
 
 function HomePage() {
-  const { user } = useAuth();
+  const { reports, isLoading, error } = useReports();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.layout}>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <pre>{JSON.stringify(reports, null, 2)}</pre>
     </div>
   );
 }

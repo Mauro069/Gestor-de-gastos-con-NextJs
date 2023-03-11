@@ -1,28 +1,32 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { isValidObjectId } from "mongoose";
-import Report from "@/models/Report";
 import { withAuth } from "@/lib/withAuth";
+import Report from "@/models/Report";
+import db from "@/utils/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = req.query;
-
   try {
+    let userId = req.query.userId;
+
     if (!userId) {
       res.json({
         msj: "Debes enviar un userId",
       });
     }
 
-    if (!isValidObjectId(userId as string)) {
+    if (!isValidObjectId(userId)) {
       res.json({
         msj: "El userId no es valido",
       });
     }
 
-    const reports = await Report.find({ userRef: userId as string });
+    await db.connect();
+
+    const reports = await Report.find({ userRef: userId });
+    await db.disconnect();
     res.json({ reports });
   } catch (error) {
-    res.json({ msj: "Ocurrio un error", error });
+    res.status(404).json({ msj: "Ocurrio un error", error });
   }
 }
 
