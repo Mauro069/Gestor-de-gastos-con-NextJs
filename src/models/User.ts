@@ -2,7 +2,7 @@
 import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 export interface IUser {
-  _id?: ObjectId | string;
+  _id?: ObjectId | string | undefined;
   email: string;
   password: string;
 }

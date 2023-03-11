@@ -1,12 +1,21 @@
-import mongoose, { model, Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
-export interface IReport extends Document {
-  userRef: Schema.Types.ObjectId;
+export interface IReport {
+  _id: ObjectId | string;
+  userRef: ObjectId | string;
   month: string;
   initialMoney: number;
   currentAmount?: number;
-  createdAt: string;
-  updatedAt: string;
+}
+
+export interface IReportSchema extends Document {
+  _id: ObjectId;
+  userRef: ObjectId;
+  month: string;
+  initialMoney: number;
+  currentAmount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 const ReportSchema: Schema = new Schema(
