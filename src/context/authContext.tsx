@@ -18,7 +18,7 @@ export interface AuthContextType extends AuthState {
 export const AuthContext = createContext<AuthContextType>({} as AuthState);
 
 export const AuthProvider: React.FC<{
-  children: JSX.Element;
+  children: JSX.Element[] | JSX.Element;
 }> = ({ children }) => {
   const [authState, setAuthState] = useState<AuthState>({
     isLoggedIn: false,
@@ -29,22 +29,24 @@ export const AuthProvider: React.FC<{
 
   useEffect(() => {
     let verifyToken = async () => {
-      const {
-        data: { user, isValid },
-      } = await axios.get("/api/auth/session");
+      if (!authState.user || !authState.isLoggedIn) {
+        const {
+          data: { user, isValid },
+        } = await axios.get("/api/auth/session");
 
-      if (isValid) {
-        setAuthState({
-          isLoggedIn: isValid,
-          user,
-        });
-      } else {
-        router.push("/");
+        if (isValid) {
+          setAuthState({
+            isLoggedIn: isValid,
+            user,
+          });
+        } else {
+          router.push("/");
+        }
       }
     };
 
     verifyToken();
-  }, [router]);
+  }, [authState, router]);
 
   const login = async (user: IUser) => {
     try {
