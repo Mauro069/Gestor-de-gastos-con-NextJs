@@ -17,10 +17,14 @@ async function connect() {
   }
 
   require("dotenv").config();
-  console.log({ env: process.env });
+  let urlDev = "mongodb://127.0.0.1/gestor-de-ingresos";
+  let urlProd = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.a7z1tz9.mongodb.net/?retryWrites=true&w=majority`;
+
   const db = await mongoose.connect(
-    `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.a7z1tz9.mongodb.net/?retryWrites=true&w=majority`
+    process.env.NODE_ENV === "production" ? urlProd : urlDev
   );
+
+  console.log({ db: process.env.NODE_ENV === "production" ? urlProd : urlDev });
 
   console.log({ connection });
   console.log("new connection");
