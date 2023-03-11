@@ -18,4 +18,3 @@ JWT_SECRET='lo que quieras'
 ![Registro](https://user-images.githubusercontent.com/81174890/224432574-910ccc66-f598-48d5-93c9-89bcc8676593.png)
 ![Home 🏠](https://user-images.githubusercontent.com/81174890/224432579-7359a931-e157-4179-b386-2044d63c0189.png)
 ![Detalle del reporte](https://user-images.githubusercontent.com/81174890/224432582-08f68299-a53e-40b6-a752-306e61f8f53f.png)
-# Gestor-de-gastos-con-NextJs
