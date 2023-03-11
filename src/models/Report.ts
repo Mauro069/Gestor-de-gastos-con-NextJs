@@ -1,4 +1,4 @@
-import { model, Schema, Document } from "mongoose";
+import mongoose, { model, Schema, Document } from "mongoose";
 
 export interface IReport extends Document {
   userRef: Schema.Types.ObjectId;
@@ -22,4 +22,5 @@ const ReportSchema: Schema = new Schema(
   }
 );
 
-export default model<IReport>("Report", ReportSchema);
+const Report = mongoose.models.Report || mongoose.model("Report", ReportSchema);
+export default Report;

@@ -1,4 +1,4 @@
-import { model, Schema, Document } from "mongoose";
+import mongoose, { model, Schema, Document } from "mongoose";
 
 export interface IExpenseType extends Document {
   name: string;
@@ -18,4 +18,6 @@ const ExpenseTypeSchema: Schema = new Schema(
   }
 );
 
-export default model<IExpenseType>("ExpenseType", ExpenseTypeSchema);
+const ExpenseType =
+  mongoose.models.Report || mongoose.model("ExpenseType", ExpenseTypeSchema);
+export default ExpenseType;

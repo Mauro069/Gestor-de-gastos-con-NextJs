@@ -1,7 +1,8 @@
 // @ts-ignore
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 export interface IUser {
+  _id?: ObjectId | string;
   email: string;
   password: string;
 }
