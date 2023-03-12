@@ -1,3 +1,4 @@
+import { Layout } from "@/components/Layout";
 import useReports from "@/hooks/useReports";
 import styles from "../styles/homePage.module.scss";
 
@@ -9,9 +10,9 @@ function HomePage() {
   }
 
   return (
-    <div className={styles.layout}>
+    <Layout>
       <pre>{JSON.stringify(reports, null, 2)}</pre>
-    </div>
+    </Layout>
   );
 }
 

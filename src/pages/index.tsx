@@ -1,5 +1,5 @@
-
 import { Input, Switch } from "@/components";
+import { Layout } from "@/components/Layout";
 import { useAuth } from "@/hooks/useAuth";
 import { ChangeEvent, FormEvent, useState } from "react";
 
@@ -33,8 +33,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className={styles.layout}>
-      <h1 className={styles.title}>Gestify</h1>
+    <Layout>
       <div className={styles.col}>
         <div className={styles.switches}>
           <Switch
@@ -73,6 +72,6 @@ export default function AuthPage() {
           <button className={styles.button}>{titles[auth]}</button>
         </form>
       </div>
-    </div>
+    </Layout>
   );
 }
