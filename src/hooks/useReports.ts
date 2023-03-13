@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import axios, { AxiosError } from "axios";
 import { useAuth } from "./useAuth";
 
@@ -19,7 +19,7 @@ type ApiError = {
 
 export const useReports = () => {
   const { user } = useAuth();
-  const { data, isLoading, error } = useQuery<
+  const { data, isLoading, error, refetch } = useQuery<
     { reports: Report[] },
     AxiosError<ApiError>
   >(["reports", user], async () => {
@@ -27,9 +27,26 @@ export const useReports = () => {
     return response.data;
   });
 
+  const { mutate: createReport } = useMutation<
+    Report,
+    AxiosError<ApiError>,
+    Report
+  >(
+    async (newReport: Report) => {
+      const response = await axios.post("/api/reports", newReport);
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+
   return {
     reports: data?.reports ?? [],
     isLoading,
     error,
+    createReport,
   };
 };

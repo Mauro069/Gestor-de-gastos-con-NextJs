@@ -10,14 +10,14 @@ interface InputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Input({
+export const Input = ({
   label,
   type,
   value,
   name,
   onChange,
   placeholder,
-}: InputProps) {
+}: InputProps) => {
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={name}>{label}</label>
@@ -32,4 +32,4 @@ export function Input({
       />
     </div>
   );
-}
+};

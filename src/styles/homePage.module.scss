@@ -1,12 +1,38 @@
-$green: #2a2f39;
-$greenDark: #016612;
+@import '../styles/colors.scss';
 
-.layout {
-  background-color: #17161e;
+.pageContainer {
+  background: $blueDark;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.welcome {
+  margin: 0 auto;
+  width: 95%;
   color: white;
+  padding: 2rem 0;
+  max-width: 1350px;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  h1 {
+    font-weight: 400;
+    font-size: 40px;
+  }
+
+  h4 {
+    font-weight: 400;
+    font-size: 28px;
+  }
+
+  @media (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
 }
