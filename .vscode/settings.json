@@ -1,5 +1,7 @@
 {
     "exportall.config.folderListener": [
-        "/src/components"
+        "/src/components",
+        "/src/components/Forms",
+        "/src/hooks"
     ]
 }
