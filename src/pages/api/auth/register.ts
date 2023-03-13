@@ -13,7 +13,7 @@ export default async function handler(
   }
 
   await db.connect();
-  const { email, password } = req.body;
+  const { email, password, firstname, lastname } = req.body;
 
   try {
     const user = await User?.findOne({ email });
@@ -24,7 +24,7 @@ export default async function handler(
         .json({ msj: "Ya existe un usuario con ese email" });
     }
 
-    if (!email || !password) {
+    if (!email || !password || !firstname || !lastname) {
       return res.status(400).json({ msj: "Te falto enviar algun campo" });
     }
 
@@ -34,6 +34,8 @@ export default async function handler(
       const newUser: IUserSchema = new User({
         email,
         password: hashedPassword,
+        firstname,
+        lastname,
       });
 
       try {
