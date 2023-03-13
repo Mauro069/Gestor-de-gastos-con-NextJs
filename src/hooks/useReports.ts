@@ -17,7 +17,7 @@ type ApiError = {
   statusCode: number;
 };
 
-const useReports = () => {
+export const useReports = () => {
   const { user } = useAuth();
   const { data, isLoading, error } = useQuery<
     { reports: Report[] },
@@ -33,5 +33,3 @@ const useReports = () => {
     error,
   };
 };
-
-export default useReports;
