@@ -1,77 +1,67 @@
-import { Input, Switch } from "@/components";
-import { Layout } from "@/components/Layout";
-import { useAuth } from "@/hooks/useAuth";
-import { ChangeEvent, FormEvent, useState } from "react";
-
+import { Input } from "@/components";
+import { useAuth, useForm } from "@/hooks";
+import { IUser } from "@/models";
+import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/authPage.module.scss";
 
-export default function AuthPage() {
-  const [auth, setAuth] = useState<"login" | "register">("login");
-  const [form, setForm] = useState({ email: "", password: "" });
-
-  let titles = {
-    login: "Iniciar Sesión",
-    register: "Registrarse",
-  };
-
-  const { login, register } = useAuth();
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    let { email, password } = form;
-    const user = { email, password };
-    if (auth === "login") {
-      // @ts-ignore
-      await login(user);
-    }
-
-    if (auth === "register") {
-      // @ts-ignore
-      await register(user);
-    }
-  };
+export default function LoginPage() {
+  const { login } = useAuth();
+  const { values, handleChange, handleSubmit } = useForm<IUser>({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      let { email, password } = values;
+      if (email && password) {
+        console.log({ values });
+        const user = { email, password };
+        await login!(user);
+      }
+    },
+  });
 
   return (
-    <Layout>
-      <div className={styles.col}>
-        <div className={styles.switches}>
-          <Switch
-            title="Iniciar Sesión"
-            onSwitch={() => setAuth("login")}
-            isActive={auth === "login"}
-          />
-          <Switch
-            title="Registrarse"
-            onSwitch={() => setAuth("register")}
-            isActive={auth === "register"}
-          />
-        </div>
+    <div className={styles.authPage}>
+      <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <h3>{titles[auth]}</h3>
-          <div className={styles.inputs}>
-            <Input
-              label="Email"
-              name="email"
-              type="text"
-              value={form.email}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setForm({ ...form, [e.target.name]: e.target.value })
-              }
-            />
-            <Input
-              label="Contraseña"
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setForm({ ...form, [e.target.name]: e.target.value })
-              }
-            />
-          </div>
-          <button className={styles.button}>{titles[auth]}</button>
+          <h3 className={styles.title}>Inicio de Sesión</h3>
+          <Input
+            onChange={handleChange}
+            value={values.email}
+            placeholder="Ingresa tu correo..."
+            label="Correo"
+            name="email"
+            type="email"
+          />
+
+          <Input
+            onChange={handleChange}
+            value={values.password}
+            placeholder="Ingresa tu contraseña..."
+            label="Contraseña"
+            name="password"
+            type="password"
+          />
+          <button className={styles.submitButton} type="submit">
+            Iniciar Sesión
+          </button>
+          <span className={styles.link}>
+            Aun no tienes cuenta? <Link href="/register">Registrate</Link>
+          </span>
         </form>
       </div>
-    </Layout>
+      <div className={styles.backgroundDark}>
+        <div className={styles.imgContainer}>
+          <Image
+            width={1920}
+            height={1080}
+            src="/auth-bg.png"
+            alt="Login Background"
+          />
+        </div>
+      </div>
+    </div>
   );
 }

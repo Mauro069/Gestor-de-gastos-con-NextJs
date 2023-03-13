@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout";
-import useReports from "@/hooks/useReports";
+import { useReports } from "@/hooks";
 import styles from "../styles/homePage.module.scss";
 
 function HomePage() {
