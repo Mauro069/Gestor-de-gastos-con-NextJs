@@ -6,10 +6,18 @@ interface InputProps {
   type: string;
   value: string;
   name: string;
+  placeholder?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Input({ label, type, value, name, onChange }: InputProps) {
+export function Input({
+  label,
+  type,
+  value,
+  name,
+  onChange,
+  placeholder,
+}: InputProps) {
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={name}>{label}</label>
@@ -20,6 +28,7 @@ export function Input({ label, type, value, name, onChange }: InputProps) {
         name={name}
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
       />
     </div>
   );

@@ -1,24 +1,23 @@
-$green: #2a2f39;
-$greenDark: #016612;
-
 .inputContainer {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 6px;
 
   label {
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: medium;
+    font-size: 16px;
+    color: #7C838A;
   }
 
   input {
-    padding: 0.8rem;
-    border-radius: 4px;
-    border: 2px solid $green;
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #3a4a3f15;
   }
 
-  input:focus {
-    transition: 0.3s;
-    border: 2px solid $greenDark;
+  input::placeholder {
+    color: #3a4a3f45;
   }
 }
