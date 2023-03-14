@@ -3,8 +3,11 @@ import { Button, Input } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/authPage.module.scss";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [loading, setLoading] = useState(false);
+
   const { register } = useAuth();
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
@@ -15,6 +18,7 @@ export default function RegisterPage() {
       confirmPassword: "",
     },
     onSubmit: async (values) => {
+      setLoading(true);
       let { firstname, lastname, email, password, confirmPassword } = values;
       if (firstname && lastname && email && password && confirmPassword) {
         if (password === confirmPassword) {
@@ -22,6 +26,7 @@ export default function RegisterPage() {
           await register!(user);
         }
       }
+      setLoading(false);
     },
   });
 
@@ -75,7 +80,11 @@ export default function RegisterPage() {
             name="confirmPassword"
             type="password"
           />
-          <Button backgroundColor="#c75200" buttonText="Crear cuenta" />
+          <Button
+            backgroundColor="#c75200"
+            buttonText="Crear cuenta"
+            isLoading={loading}
+          />
           <span className={styles.link}>
             Ya tienes cuenta? <Link href="/">Inicia Sesión</Link>
           </span>
