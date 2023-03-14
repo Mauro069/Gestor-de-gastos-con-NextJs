@@ -8,25 +8,21 @@ import styles from "./styles.module.scss";
 
 export const CreateReport = () => {
   const [month, setMonth] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
-  const { createReport } = useReports();
+  const { createReport, isLoading } = useReports();
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       userRef: user?._id,
       initialMoney: "",
     },
     onSubmit: async (values) => {
-      setLoading(true);
       const { userRef, initialMoney } = values;
 
       if (userRef && initialMoney && month) {
         // @ts-ignore
         await createReport({ userRef, initialMoney, month });
       }
-
-      setLoading(false);
     },
   });
 
@@ -50,7 +46,11 @@ export const CreateReport = () => {
           name="initialMoney"
           type="text"
         />
-        <Button buttonText="Crear" isLoading={loading} />
+        <Button
+          backgroundColor="#c75200"
+          buttonText="Crear"
+          isLoading={isLoading}
+        />
       </div>
     </form>
   );

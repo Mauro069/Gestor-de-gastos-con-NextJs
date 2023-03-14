@@ -1,11 +1,14 @@
-import { Input } from "@/components";
+import { Button, Input } from "@/components";
 import { useAuth, useForm } from "@/hooks";
 import { IUser } from "@/models";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import styles from "../styles/authPage.module.scss";
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState(false);
+
   const { login } = useAuth();
   const { values, handleChange, handleSubmit } = useForm<IUser>({
     initialValues: {
@@ -13,12 +16,14 @@ export default function LoginPage() {
       password: "",
     },
     onSubmit: async (values) => {
+      setLoading(true);
       let { email, password } = values;
       if (email && password) {
         console.log({ values });
         const user = { email, password };
         await login!(user);
       }
+      setLoading(false);
     },
   });
 
@@ -44,9 +49,11 @@ export default function LoginPage() {
             name="password"
             type="password"
           />
-          <button className={styles.submitButton} type="submit">
-            Iniciar Sesión
-          </button>
+          <Button
+            backgroundColor="#c75200"
+            buttonText="Iniciar Sesión"
+            isLoading={loading}
+          />
           <span className={styles.link}>
             Aun no tienes cuenta? <Link href="/register">Registrate</Link>
           </span>

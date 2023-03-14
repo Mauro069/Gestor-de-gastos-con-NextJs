@@ -1,5 +1,5 @@
 import { useAuth, useForm } from "@/hooks";
-import { Input } from "@/components";
+import { Button, Input } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/authPage.module.scss";
@@ -75,9 +75,7 @@ export default function RegisterPage() {
             name="confirmPassword"
             type="password"
           />
-          <button className={styles.submitButton} type="submit">
-            Crear cuenta
-          </button>
+          <Button backgroundColor="#c75200" buttonText="Crear cuenta" />
           <span className={styles.link}>
             Ya tienes cuenta? <Link href="/">Inicia Sesión</Link>
           </span>
