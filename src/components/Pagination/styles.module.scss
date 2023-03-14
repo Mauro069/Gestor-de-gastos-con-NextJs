@@ -1,0 +1,28 @@
+.pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1rem;
+
+  button {
+    background: #2a2f39;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button:hover {
+    transition-duration: 0.3s;
+    border: 2px solid #475569;
+  }
+
+  .next {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}

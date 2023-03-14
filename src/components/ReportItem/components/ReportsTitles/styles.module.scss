@@ -1,0 +1,17 @@
+.reportsTitles {
+  padding: 1rem;
+  border-bottom: 2px solid #475569;
+  color: #7a828e;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  span {
+    width: 200px;
+  }
+
+  @media (max-width: 1150px) {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-import { CreateReport } from "@/components";
+import { CreateReport, ReportsList } from "@/components";
 import { useReports } from "@/hooks";
 import { getTotalCurrentMoney } from "@/utils/getTotalCurrentMoney";
 import styles from "../styles/homePage.module.scss";
@@ -22,8 +22,8 @@ function HomePage() {
           </div>
           <CreateReport />
         </div>
-        {/* <ReportsList reports={reports} /> */}
-        <pre style={{ color: "white" }}>{JSON.stringify(reports, null, 2)}</pre>
+         <ReportsList reports={reports} /> 
+        {/* <pre style={{ color: "white" }}>{JSON.stringify(reports, null, 2)}</pre> */}
       </div>
     </main>
   );

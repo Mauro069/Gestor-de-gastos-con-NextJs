@@ -1,0 +1,88 @@
+.reportItem {
+  padding: 1rem;
+  border-bottom: 3px solid #475569;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 0.5rem;
+
+  .flex {
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    span {
+      min-width: 200px;
+    }
+  }
+
+  svg {
+    cursor: pointer;
+    stroke: #475569;
+    position: absolute;
+    right: 0;
+    margin-right: 1rem;
+  }
+
+  @media (max-width: 1150px) {
+    flex-direction: column;
+    position: relative;
+    padding: 1rem 0;
+
+    .flex {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      row-gap: 1rem;
+      padding: 1rem;
+      margin: 0 1rem;
+
+      span {
+        width: fit-content;
+      }
+    }
+
+    .month {
+      align-self: flex-start;
+      width: fit-content;
+      border-bottom: 1px solid #475569;
+      padding-bottom: 0.5rem;
+      margin-left: 1rem;
+      width: fit-content !important;
+    }
+
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-top: 1rem;
+      margin-right: 1rem;
+    }
+  }
+
+  @media (min-width: 1151px) {
+    b {
+      display: none;
+    }
+
+    .month {
+      min-width: 200px;
+    }
+  }
+}
+
+.reportItem:hover {
+  background-color: #47556950;
+  transition-duration: 1s;
+
+  svg {
+    stroke: white;
+  }
+}
+
+.reportItem:last-child {
+  border-bottom: none;
+}

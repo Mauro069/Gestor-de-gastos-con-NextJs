@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 export interface IReport {
-  _id: ObjectId | string;
+  _id: ObjectId | string | null | undefined;
   userRef: ObjectId | string;
   month: string;
   initialMoney: number;
