@@ -8,21 +8,25 @@ import styles from "./styles.module.scss";
 
 export const CreateReport = () => {
   const [month, setMonth] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
-  const { createReport, isLoading } = useReports();
+  const { createReport } = useReports();
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       userRef: user?._id,
       initialMoney: "",
     },
     onSubmit: async (values) => {
+      setLoading(true);
       const { userRef, initialMoney } = values;
 
       if (userRef && initialMoney && month) {
         // @ts-ignore
         await createReport({ userRef, initialMoney, month });
       }
+
+      setLoading(false);
     },
   });
 
@@ -33,12 +37,13 @@ export const CreateReport = () => {
       <h4>Crear reporte</h4>
       <div className={styles.inputs}>
         <Dropdown
-          defaultOption={"Mes..."}
+          placeholder={"Mes..."}
           options={months}
           onSelect={changeMonth}
           optionSelected={month}
         />
         <input
+          autoComplete="off"
           onChange={handleChange}
           className={styles.input}
           value={values.initialMoney}
@@ -48,8 +53,8 @@ export const CreateReport = () => {
         />
         <Button
           backgroundColor="#c75200"
-          buttonText="Crear"
-          isLoading={isLoading}
+          buttonText="Crear Reporte"
+          isLoading={loading}
         />
       </div>
     </form>

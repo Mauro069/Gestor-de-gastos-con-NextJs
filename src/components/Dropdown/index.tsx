@@ -2,14 +2,14 @@ import { useState } from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
-  defaultOption: string;
+  placeholder: string;
   options: any[];
   onSelect: (optionSelected: string) => void;
   optionSelected: string | null;
 }
 
 export const Dropdown = ({
-  defaultOption,
+  placeholder,
   options,
   onSelect,
   optionSelected,
@@ -23,7 +23,7 @@ export const Dropdown = ({
         className={open ? styles.selectActive : styles.select}
       >
         <span className={!optionSelected ? styles.withOpacity : ""}>
-          {optionSelected || defaultOption}
+          {optionSelected || placeholder}
         </span>
         <Svg open={open} />
       </div>
