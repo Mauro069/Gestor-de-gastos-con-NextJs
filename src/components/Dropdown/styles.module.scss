@@ -1,0 +1,90 @@
+.selectContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 150px;
+
+  .select {
+    width: 100%;
+    color: white;
+    height: 40px;
+    background: #251f2b;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    height: 40px;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .withOpacity {
+      color: #ffffff30;
+    }
+
+    .svg {
+      transition-duration: 0.3s;
+      transform: rotate(0deg);
+    }
+
+    .active {
+      transition-duration: 0.3s;
+      transform: rotate(-180deg);
+    }
+  }
+
+  .selectActive {
+    @extend .select;
+    border-radius: 6px 6px 0px 0px;
+  }
+
+  .select:hover {
+    transition-duration: 0.3s;
+    background: #251f2b50;
+  }
+
+  .options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 0 0 10px 10px;
+
+    .option {
+      height: 40px;
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+      background: #251f2b;
+      padding: 10px 1rem;
+      font-weight: normal;
+      border-bottom: 1px solid #ffffff10;
+    }
+
+    .option:last-child {
+      border: none;
+    }
+
+    .option:hover {
+      transition-duration: 0.3s;
+      font-weight: bold;
+    }
+  }
+  
+
+  .options::-webkit-scrollbar {
+    width: 2px;
+    background: #251f2b;
+
+  }
+
+  .options::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    border: 3px solid #ffffff25;
+  }
+}
