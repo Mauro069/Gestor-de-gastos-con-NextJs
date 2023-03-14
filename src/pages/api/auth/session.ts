@@ -8,8 +8,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (gdi_cookie) {
       const payload = verify(gdi_cookie, process.env.JWT_SECRET!);
-      console.log("payload => ", payload);
-
       if (!payload) clearCookie(res, "gdi_cookie");
 
       // @ts-ignore
