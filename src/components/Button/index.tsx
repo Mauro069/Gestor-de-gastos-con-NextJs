@@ -4,15 +4,29 @@ import styles from "./styles.module.scss";
 interface Props {
   isLoading?: boolean;
   buttonText: string;
+  backgroundColor: string;
+  textColor?: string;
 }
 
-export const Button = ({ isLoading, buttonText }: Props) => {
+export const Button = ({
+  isLoading,
+  buttonText,
+  backgroundColor,
+  textColor,
+}: Props) => {
   return isLoading ? (
-    <div className={styles.loadingContainer}>
-      <Loader /> Cargando...
+    <div
+      style={{ background: backgroundColor }}
+      className={styles.loadingContainer}
+    >
+      <Loader size={25} />
     </div>
   ) : (
-    <button className={styles.button} type="submit">
+    <button
+      style={{ background: backgroundColor, color: textColor }}
+      className={styles.button}
+      type="submit"
+    >
       {buttonText}
     </button>
   );

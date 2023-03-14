@@ -6,20 +6,19 @@
   justify-content: center;
   gap: 1rem;
   padding: 0.6rem;
-  background-color: $orangeDark;
   border-radius: 8px;
+  height: 40px;
   color: white;
 }
 
 .button {
   cursor: pointer;
   padding: 0.6rem;
-  background-color: $orangeDark;
   color: white;
   border-radius: 8px;
 }
 
 .button:hover {
   transition-duration: 0.3s;
-  background-color: $orangeDark;
+  filter: brightness(1.1);
 }
