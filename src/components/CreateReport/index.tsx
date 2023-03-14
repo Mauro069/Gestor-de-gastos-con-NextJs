@@ -1,10 +1,13 @@
 import { useAuth, useForm, useReports } from "@/hooks";
+import { months } from "@/utils/months";
 import { useState } from "react";
 import { Button } from "../Button";
+import { Dropdown } from "../Dropdown";
 
 import styles from "./styles.module.scss";
 
 export const CreateReport = () => {
+  const [month, setMonth] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
@@ -12,12 +15,11 @@ export const CreateReport = () => {
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       userRef: user?._id,
-      month: "",
       initialMoney: "",
     },
     onSubmit: async (values) => {
       setLoading(true);
-      const { userRef, initialMoney, month } = values;
+      const { userRef, initialMoney } = values;
 
       if (userRef && initialMoney && month) {
         // @ts-ignore
@@ -28,17 +30,17 @@ export const CreateReport = () => {
     },
   });
 
+  const changeMonth = (month: any) => setMonth(month);
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h4>Crear reporte</h4>
       <div className={styles.inputs}>
-        <input
-          className={styles.input}
-          onChange={handleChange}
-          value={values.month}
-          placeholder="Mes..."
-          name="month"
-          type="text"
+        <Dropdown
+          defaultOption={"Mes..."}
+          options={months}
+          onSelect={changeMonth}
+          optionSelected={month}
         />
         <input
           onChange={handleChange}
