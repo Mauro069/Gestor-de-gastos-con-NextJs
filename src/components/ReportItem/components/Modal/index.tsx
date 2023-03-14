@@ -1,5 +1,6 @@
+import { useReports } from "@/hooks";
 import { useRouter } from "next/router";
-import styles from "./ModalOptions.module.scss";
+import styles from "./styles.module.scss";
 
 interface Props {
   setModal: (modal: boolean) => void;
@@ -14,10 +15,10 @@ interface OptionProps {
 
 export const ModalOptions = ({ setModal, modal, reportId }: Props) => {
   const router = useRouter();
+  const { deleteReport } = useReports();
 
   const onDelete = async () => {
-    // const reportDeleted = await deleteReportById(reportId);
-    // console.log(reportDeleted);
+    await deleteReport(reportId);
   };
 
   const options: OptionProps[] = [

@@ -23,7 +23,7 @@ export const useReports = () => {
     { reports: Report[] },
     AxiosError<ApiError>
   >(["reports", user], async () => {
-    const response = await axios.get(`/api/reports/${user!._id}`);
+    const response = await axios.get(`/api/reports/user/${user!._id}`);
     return response.data;
   });
 
@@ -43,10 +43,27 @@ export const useReports = () => {
     }
   );
 
+  const { mutate: deleteReport } = useMutation<
+    any,
+    AxiosError<ApiError>,
+    string
+  >(
+    async (reportId: string) => {
+      const response = await axios.delete(`/api/reports/${reportId}`);
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+
   return {
     reports: data?.reports ?? [],
     isLoading,
     error,
     createReport,
+    deleteReport,
   };
 };
