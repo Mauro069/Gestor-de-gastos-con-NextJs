@@ -9,7 +9,7 @@ import { ModalOptions, Text } from "./components";
 
 import styles from "./styles.module.scss";
 
-const ReportItem = ({ initialMoney, month, _id, currentAmount }: IReport) => {
+export const ReportItem = ({ initialMoney, month, _id, currentAmount }: IReport) => {
   const [modal, setModal] = useState(false);
 
   const expense = initialMoney! - currentAmount!;
@@ -37,4 +37,4 @@ const ReportItem = ({ initialMoney, month, _id, currentAmount }: IReport) => {
   );
 };
 
-export default ReportItem;
+

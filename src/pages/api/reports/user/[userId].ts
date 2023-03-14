@@ -22,7 +22,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     await db.connect();
 
-    const reports = await Report.find({ userRef: userId });
+    const reports = await Report.find({ userRef: userId }).sort({
+      createdAt: -1,
+    });
     await db.disconnect();
     res.json({ reports });
   } catch (error) {
