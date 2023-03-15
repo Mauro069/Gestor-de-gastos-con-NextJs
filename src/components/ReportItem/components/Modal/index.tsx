@@ -23,7 +23,7 @@ export const ModalOptions = ({ setModal, modal, reportId }: Props) => {
 
   const options: OptionProps[] = [
     {
-      title: "Ver detalle",
+      title: "Detalle",
       onClick: () => router.push(`/report/${reportId}`),
     },
     {
