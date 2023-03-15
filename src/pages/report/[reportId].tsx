@@ -10,11 +10,9 @@ function ReportDetail() {
   let reportId = query.reportId;
 
   // const { report, isLoading: isLoadingReport } = useReport(reportId);
-  const {
-    expenses,
-    isLoading: isLoadingExpenses,
-    createExpense,
-  } = useExpenses("6411f1e28ff1749bb7adb5f4");
+  const { expenses, isLoading: isLoadingExpenses } = useExpenses(
+    "6411f1e28ff1749bb7adb5f4"
+  );
 
   if (isLoadingExpenses) {
     return <div>Loading...</div>;
@@ -24,7 +22,6 @@ function ReportDetail() {
 
   const onClick = () => {
     console.log("first");
-    createExpense()
   };
 
   return (
