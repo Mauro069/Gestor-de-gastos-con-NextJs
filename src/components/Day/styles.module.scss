@@ -1,0 +1,46 @@
+.dayContainer {
+  border: 2px solid #2a2f39;
+  width: 200px;
+  height: 200px;
+  position: relative;
+
+  .dayNumber {
+    position: absolute;
+    margin-top: 0.6rem;
+    margin-left: 0.6rem;
+    left: 0;
+    top: 0;
+    padding: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #ffffff10;
+    border-radius: 4px;
+  }
+
+  .expenses {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 0.6rem;
+    align-self: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 0.6rem;
+
+    span {
+      background-color: #0500ff50;
+      padding: 3px 6px;
+      width: fit-content;
+      border-radius: 3px;
+    }
+  }
+}
+
+.todayContainer {
+  @extend .dayContainer;
+
+  .dayNumber {
+    border: 1px solid white;
+  }
+}
