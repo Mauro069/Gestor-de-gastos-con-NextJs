@@ -1,24 +1,24 @@
-import mongoose, { model, Schema, Document, Types } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 import { IExpenseType } from "./ExpenseType";
-import { IReport } from "./Report";
+import { IUser } from "./User";
 
 export interface IExpense extends Document {
   date: string;
   amount: number;
   description: string;
   type: Types.ObjectId | IExpenseType;
-  reportRef: Types.ObjectId | IReport;
+  userRef: Types.ObjectId | IUser;
   createdAt: string;
   updatedAt: string;
 }
 
 const ExpenseSchema: Schema = new Schema(
   {
+    userRef: { type: Schema.Types.ObjectId, ref: "User", required: true },
     date: { type: String, required: true },
     amount: { type: Number, required: true },
     description: { type: String, required: true },
     type: { type: Schema.Types.ObjectId, ref: "ExpenseType", required: true },
-    reportRef: { type: Schema.Types.ObjectId, ref: "Report", required: true },
   },
   {
     versionKey: false,
@@ -27,5 +27,5 @@ const ExpenseSchema: Schema = new Schema(
 );
 
 const Expense =
-  mongoose.models.Report || mongoose.model("Expense", ExpenseSchema);
+  mongoose.models.Expense || mongoose.model("Expense", ExpenseSchema);
 export default Expense;

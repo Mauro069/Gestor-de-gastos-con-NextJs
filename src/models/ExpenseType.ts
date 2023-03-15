@@ -19,5 +19,5 @@ const ExpenseTypeSchema: Schema = new Schema(
 );
 
 const ExpenseType =
-  mongoose.models.Report || mongoose.model("ExpenseType", ExpenseTypeSchema);
+  mongoose.models.ExpenseType || mongoose.model("ExpenseType", ExpenseTypeSchema);
 export default ExpenseType;
