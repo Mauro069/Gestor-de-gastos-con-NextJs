@@ -19,43 +19,20 @@ type ApiError = {
   statusCode: number;
 };
 
-export const useExpenses = (reportId: string | string[] | undefined) => {
+export const useExpenses = (day: any) => {
   const {
     data: expenses,
     isLoading,
     error,
     refetch,
-  } = useQuery<Expense[], AxiosError<ApiError>>(
-    ["expensesByReportId", reportId],
-    async () => {
-      const response = await axios.get(`/api/expenses/${reportId}/`);
-      return response.data;
-    }
-  );
-
-  const { mutate: createExpense } = useMutation<
-    Expense,
-    AxiosError<ApiError>,
-    Expense
-  >(
-    async (newExpense: Expense) => {
-      const response = await axios.post(
-        `/api/expenses`,
-        newExpense
-      );
-      return response.data;
-    },
-    {
-      onSuccess: () => {
-        refetch();
-      },
-    }
-  );
+  } = useQuery<Expense[], AxiosError<ApiError>>(["expenses", day], async () => {
+    const { data } = await axios.get(`/api/expenses/${day}`);
+    return data.expenses;
+  });
 
   return {
     expenses,
     isLoading,
-    createExpense,
     error,
     refetch,
   };
