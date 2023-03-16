@@ -1,42 +1,51 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { withAuth } from "@/lib/withAuth";
 import Expense from "@/models/Expense";
-import db from "@/utils/db";
 import dayjs from "dayjs";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     try {
-      //   const { startOfWeek, endOfWeek, startOfWeekPrev, endOfWeekPrev } =
-      //     req.body;
+       const {
+         currentWeekStart: startOfWeek,
+         currentWeekEnd: endOfWeek,
+         previousWeekEnd: startOfWeekPrev,
+         previousWeekStart: endOfWeekPrev,
+       } = req.body;
 
-      const week = dayjs().startOf("week").add(1, "day");
-      const startOfWeek = week
-        .startOf("week")
-        .add(1, "day")
-        .format("DD/MM/YYYY");
-      const endOfWeek = dayjs()
-        .endOf("week")
-        .add(1, "day")
-        .format("DD/MM/YYYY");
+      //  const week = dayjs().startOf("week").add(1, "day");
+      //  const startOfWeek = week
+      //    .startOf("week")
+      //    .add(1, "day")
+      //    .format("DD/MM/YYYY");
+      //  const endOfWeek = dayjs()
+      //    .endOf("week")
+      //    .add(1, "day")
+      //    .format("DD/MM/YYYY")
 
       const expenses = await Expense.find({
         date: { $gte: startOfWeek, $lte: endOfWeek },
       });
+      
       const thisWeekAmount = expenses.reduce(
         (acc, expense) => acc + expense.amount,
         0
       );
 
-      const prevWeek = dayjs().startOf("week");
-      const startOfWeekPrev = prevWeek
-        .startOf("week")
-        .subtract(7, "days")
-        .format("DD/MM/YYYY");
-      const endOfWeekPrev = prevWeek
-        .endOf("week")
-        .subtract(6, "days")
-        .format("DD/MM/YYYY");
+      //  const prevWeek = dayjs().startOf("week");
+      //  const startOfWeekPrev = prevWeek
+      //    .startOf("week")
+      //    .subtract(7, "days")
+      //    .format("DD/MM/YYYY");
+      //  const endOfWeekPrev = prevWeek
+      //    .endOf("week")
+      //    .subtract(6, "days")
+      //    .format("DD/MM/YYYY");
+
+      console.log({startOfWeek,
+        endOfWeek,
+        startOfWeekPrev,
+        endOfWeekPrev,})
 
       const expensesPrev: any = await Expense.find({
         date: {

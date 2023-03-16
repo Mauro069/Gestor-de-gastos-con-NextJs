@@ -39,10 +39,10 @@ const useWeekPicker = (): WeekPicker => {
     days.push(day.format("DD/MM/YYYY"));
   }
 
-  const currentWeekStart = startOfWeek.format("YYYY-MM-DD");
-  const currentWeekEnd = endOfWeek.format("YYYY-MM-DD");
-  const previousWeekStart = startOfWeek.subtract(1, "week").format("YYYY-MM-DD");
-  const previousWeekEnd = endOfWeek.subtract(1, "week").format("YYYY-MM-DD");
+  const currentWeekStart = startOfWeek.format("DD-MM-YYYY");
+  const currentWeekEnd = endOfWeek.format("DD-MM-YYYY");
+  const previousWeekStart = startOfWeek.subtract(1, "week").format("DD-MM-YYYY");
+  const previousWeekEnd = endOfWeek.subtract(1, "week").format("DD-MM-YYYY");
 
   return {
     week,

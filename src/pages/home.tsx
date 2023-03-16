@@ -2,18 +2,51 @@ import { Day } from "@/components";
 import { useAuth } from "@/hooks";
 import useWeekPicker from "@/hooks/useWeekPicker";
 import { months, nameOfsDays } from "@/utils/monthsAndDays";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styles from "../styles/homePage.module.scss";
 
 const HomePage = (): JSX.Element => {
-  const { week, handlePrevWeekClick, handleNextWeekClick, days } =
-    useWeekPicker();
+  const {
+    week,
+    handlePrevWeekClick,
+    handleNextWeekClick,
+    days,
+    currentWeekStart,
+    currentWeekEnd,
+    previousWeekEnd,
+    previousWeekStart,
+  } = useWeekPicker();
   const { user } = useAuth();
+
+  const [expenseAmount, setExpenseAmount] = useState(null);
+
+  useEffect(() => {
+    let fetchExpenseAmount = async () => {
+      const { data } = await axios.post("/api/expenses/weekly", {
+        currentWeekStart,
+        currentWeekEnd,
+        previousWeekEnd,
+        previousWeekStart,
+      });
+
+      console.log({ data });
+    };
+
+    fetchExpenseAmount();
+  }, [currentWeekStart, currentWeekEnd, previousWeekEnd, previousWeekStart]);
 
   return (
     <div className={styles.pageContainer}>
       <span className={styles.welcome}>
         Hola, <b>{user?.firstname}!</b>
       </span>
+      <div>
+        <span>
+          Hoy Gastaste <h1>{}</h1>{" "}
+        </span>
+      </div>
+
       <div className={styles.weekContainer}>
         <span>
           {/* @ts-ignore */}

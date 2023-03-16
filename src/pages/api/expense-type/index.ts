@@ -6,15 +6,17 @@ import ExpenseType from "@/models/ExpenseType";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+    const { name, color } = req.body;
+
     await db.connect();
     const newExpenseType = new ExpenseType({
-      name: "Ropa",
-      color: "FF0000",
+      name: "Peluqueria",
+      color: "FF7A00",
     });
 
     await newExpenseType.save();
-
     await db.disconnect();
+
     res.json({
       msj: "Tipo de gasto creado correctamente",
       expenseType: newExpenseType,
