@@ -32,7 +32,12 @@ const HomePage = (): JSX.Element => {
             <h1>${withPoints(data?.thisWeekExpensesAmount)}</h1>{" "}
             <div
               style={{
-                background: data?.percentage > 0 ? "#FF0000" : "#01BB1F",
+                background:
+                  data?.percentage > 0
+                    ? "#FF0000"
+                    : data?.percentage < 0
+                    ? "#01BB1F"
+                    : "#FCC70A",
               }}
               className={styles.percentage}
             >
