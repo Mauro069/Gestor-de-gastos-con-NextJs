@@ -3,11 +3,12 @@ import { withAuth } from "@/lib/withAuth";
 import { verify } from "jsonwebtoken";
 import Expense from "@/models/Expense";
 import db from "@/utils/db";
+import { transformDateToISO } from "@/utils/transformDateToISO";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      const { daysBody: days } = req.body;
+      const { daysBody: days, prevWeekStart, prevWeekEnd } = req.body;
       const { gdi_cookie } = req.cookies;
       const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
 
@@ -15,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const getExpensesByDate = async (date: string) => {
         // @ts-ignore
         // prettier-ignore
-        const expenses = await Expense.find({ date, userRef: cookie?.data?._id })
+        const expenses = await Expense.find({ date: transformDateToISO(date, "start"), userRef: cookie?.data?._id })
         return expenses;
       };
 
@@ -26,7 +27,38 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         })
       );
 
-      res.status(200).json({ weekExpenses: expenses });
+      const thisWeekExpenses = await Expense.find({
+        date: {
+          $gte: transformDateToISO(days[0], "start"),
+          $lte: transformDateToISO(days[days.length - 1], "end"),
+        },
+      });
+
+      const prevWeekExpenses = await Expense.find({
+        date: {
+          $gte: transformDateToISO(prevWeekStart, "start"),
+          $lte: transformDateToISO(prevWeekEnd, "end"),
+        },
+      });
+
+      const prevWeekExpensesAmount = prevWeekExpenses.reduce(
+        (acc, cur) => acc + cur.amount,
+        0
+      );
+      const thisWeekExpensesAmount = thisWeekExpenses.reduce(
+        (acc, cur) => acc + cur.amount,
+        0
+      );
+
+      const dif = thisWeekExpensesAmount - prevWeekExpensesAmount;
+      const percentage =
+        dif === thisWeekExpensesAmount
+          ? thisWeekExpensesAmount
+          : (dif / prevWeekExpensesAmount) * 100;
+
+      res
+        .status(200)
+        .json({ weekExpenses: expenses, thisWeekExpensesAmount, percentage });
       await db.disconnect();
     } catch (error) {
       res
