@@ -6,6 +6,12 @@ import "@/styles/globals.scss";
 
 const queryClient = new QueryClient();
 
+queryClient.setDefaultOptions({
+  queries: {
+    refetchOnWindowFocus: false,
+  },
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>

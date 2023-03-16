@@ -1,74 +1,37 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { withAuth } from "@/lib/withAuth";
+import { verify } from "jsonwebtoken";
 import Expense from "@/models/Expense";
-import dayjs from "dayjs";
+import db from "@/utils/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-       const {
-         currentWeekStart: startOfWeek,
-         currentWeekEnd: endOfWeek,
-         previousWeekEnd: startOfWeekPrev,
-         previousWeekStart: endOfWeekPrev,
-       } = req.body;
-
-      //  const week = dayjs().startOf("week").add(1, "day");
-      //  const startOfWeek = week
-      //    .startOf("week")
-      //    .add(1, "day")
-      //    .format("DD/MM/YYYY");
-      //  const endOfWeek = dayjs()
-      //    .endOf("week")
-      //    .add(1, "day")
-      //    .format("DD/MM/YYYY")
-
-      const expenses = await Expense.find({
-        date: { $gte: startOfWeek, $lte: endOfWeek },
-      });
+      const { daysBody: days } = req.body;
+      const { gdi_cookie } = req.cookies;
+      const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
       
-      const thisWeekAmount = expenses.reduce(
-        (acc, expense) => acc + expense.amount,
-        0
+
+      const getExpensesByDate = async (date: string) => {
+        // @ts-ignore
+        // prettier-ignore
+        const expenses = await Expense.find({ date, userRef: cookie?.data?._id })
+        return expenses;
+      };
+
+      const expenses = await Promise.all(
+        days.map(async (day: any) => {
+          const expenses = await getExpensesByDate(day);
+          return { expenses, date: day };
+        })
       );
 
-      //  const prevWeek = dayjs().startOf("week");
-      //  const startOfWeekPrev = prevWeek
-      //    .startOf("week")
-      //    .subtract(7, "days")
-      //    .format("DD/MM/YYYY");
-      //  const endOfWeekPrev = prevWeek
-      //    .endOf("week")
-      //    .subtract(6, "days")
-      //    .format("DD/MM/YYYY");
-
-      console.log({startOfWeek,
-        endOfWeek,
-        startOfWeekPrev,
-        endOfWeekPrev,})
-
-      const expensesPrev: any = await Expense.find({
-        date: {
-          $gte: startOfWeekPrev,
-          $lte: endOfWeekPrev,
-        },
-      });
-
-      const prevWeekAmount = expensesPrev.reduce(
-        (acc: any, expense: any) => acc + expense.amount,
-        0
-      );
-
-      const dif = thisWeekAmount - prevWeekAmount;
-      const percentageDif = (dif / prevWeekAmount) * 100;
-
-      res.json({
-        prevWeekAmount,
-        thisWeekAmount,
-        percentageDif: percentageDif.toFixed(2),
-      });
+      res.status(200).json({ weekExpenses: expenses });
+      // await db.disconnect();
     } catch (error) {
-      res.json({ msj: "Ocurrio un error", error });
+      res
+        .status(500)
+        .json({ message: "Error al obtener los gastos de la semana", error });
     }
   } else {
     return res.status(405).json({ message: "Method not allowed" });

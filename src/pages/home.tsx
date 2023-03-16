@@ -1,40 +1,13 @@
-import { Day } from "@/components";
-import { useAuth } from "@/hooks";
-import useWeekPicker from "@/hooks/useWeekPicker";
+import { useAuth, useWeeklyExpenses, useWeekPicker } from "@/hooks";
 import { months, nameOfsDays } from "@/utils/monthsAndDays";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Day, Loader } from "@/components";
 import styles from "../styles/homePage.module.scss";
 
 const HomePage = (): JSX.Element => {
-  const {
-    week,
-    handlePrevWeekClick,
-    handleNextWeekClick,
-    days,
-    currentWeekStart,
-    currentWeekEnd,
-    previousWeekEnd,
-    previousWeekStart,
-  } = useWeekPicker();
+  const { week, handlePrevWeekClick, handleNextWeekClick, days } =
+    useWeekPicker();
   const { user } = useAuth();
-
-  const [expenseAmount, setExpenseAmount] = useState(null);
-
-  useEffect(() => {
-    let fetchExpenseAmount = async () => {
-      const { data } = await axios.post("/api/expenses/weekly", {
-        currentWeekStart,
-        currentWeekEnd,
-        previousWeekEnd,
-        previousWeekStart,
-      });
-
-      console.log({ data });
-    };
-
-    fetchExpenseAmount();
-  }, [currentWeekStart, currentWeekEnd, previousWeekEnd, previousWeekStart]);
+  const { isLoading, error, data }: any = useWeeklyExpenses(days);
 
   return (
     <div className={styles.pageContainer}>
@@ -60,9 +33,15 @@ const HomePage = (): JSX.Element => {
           ))}
         </div>
         <div className={styles.week}>
-          {days.map((day) => (
-            <Day key={day} day={day} />
-          ))}
+          {!isLoading && data?.weekExpenses ? (
+            data?.weekExpenses.map(({ date, expenses }: any) => (
+              <Day key={date} day={date} expenses={expenses} />
+            ))
+          ) : (
+            <div className={styles.loaderContainer}>
+              <Loader />
+            </div>
+          )}
         </div>
         <div className={styles.buttons}>
           <button className={styles.button} onClick={handlePrevWeekClick}>

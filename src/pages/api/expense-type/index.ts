@@ -5,24 +5,44 @@ import db from "@/utils/db";
 import ExpenseType from "@/models/ExpenseType";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { name, color } = req.body;
+  if (req.method === "GET") {
+    const { ids } = req.query;
+    // @ts-ignore
+    const idsArr = ids?.includes("-") ? ids.split("-") : ids;
 
-    await db.connect();
-    const newExpenseType = new ExpenseType({
-      name: "Peluqueria",
-      color: "FF7A00",
-    });
+    try {
+      await db.connect();
+      const expenseTypes = await ExpenseType.find({ _id: { $in: idsArr } });
 
-    await newExpenseType.save();
-    await db.disconnect();
+      res.json({
+        expenseTypes,
+      });
+      await db.disconnect();
+    } catch (error) {
+      res.json({ msj: "Ocurrio un error", error });
+    }
+  } else if (req.method === "POST") {
+    try {
+      const { name, color } = req.body;
 
-    res.json({
-      msj: "Tipo de gasto creado correctamente",
-      expenseType: newExpenseType,
-    });
-  } catch (error) {
-    res.json({ msj: "Ocurrio un error", error });
+      await db.connect();
+      const newExpenseType = new ExpenseType({
+        name: "Compras",
+        color: "FF7A00",
+      });
+
+      await newExpenseType.save();
+      await db.disconnect();
+
+      res.json({
+        msj: "Tipo de gasto creado correctamente",
+        expenseType: newExpenseType,
+      });
+    } catch (error) {
+      res.json({ msj: "Ocurrio un error", error });
+    }
+  } else {
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }
 
