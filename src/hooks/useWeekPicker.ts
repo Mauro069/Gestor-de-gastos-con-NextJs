@@ -7,6 +7,8 @@ interface WeekPicker {
   handleNextWeekClick: () => void;
   days: string[];
   today: string | Dayjs;
+  prevWeekStart: string;
+  prevWeekEnd: string;
 }
 
 export const useWeekPicker = (): WeekPicker => {
@@ -27,6 +29,21 @@ export const useWeekPicker = (): WeekPicker => {
   const today = useMemo(() => dayjs().format("DD/MM/YYYY"), []);
   const days: string[] = [];
 
+  const prevWeekStart = useMemo(
+    () =>
+      week
+        .subtract(1, "week")
+        .startOf("week")
+        .add(1, "day")
+        .format("DD-MM-YYYY"),
+    [week]
+  );
+  const prevWeekEnd = useMemo(
+    () =>
+      week.subtract(1, "week").endOf("week").add(1, "day").format("DD-MM-YYYY"),
+    [week]
+  );
+
   for (
     let day = startOfWeek;
     day.isBefore(endOfWeek);
@@ -41,6 +58,7 @@ export const useWeekPicker = (): WeekPicker => {
     handleNextWeekClick,
     days,
     today,
+    prevWeekStart,
+    prevWeekEnd,
   };
 };
-
