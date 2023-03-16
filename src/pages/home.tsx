@@ -61,8 +61,13 @@ const HomePage = (): JSX.Element => {
         </div>
         <div className={styles.week}>
           {!isLoading && data?.weekExpenses ? (
-            data?.weekExpenses.map(({ date, expenses }: any) => (
-              <Day key={date} day={date} expenses={expenses} />
+            data?.weekExpenses.map(({ date, expenses }: any, index: number) => (
+              <Day
+                key={date}
+                day={date}
+                expenses={expenses}
+                dayName={index + 1}
+              />
             ))
           ) : (
             <div className={styles.loaderContainer}>
