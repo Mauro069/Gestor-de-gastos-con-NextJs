@@ -3,13 +3,18 @@ import { withAuth } from "@/lib/withAuth";
 import db from "@/utils/db";
 import Expense from "@/models/Expense";
 import { transformDateToISO } from "@/utils/transformDateToISO";
+import { verify } from "jsonwebtoken";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
+      const { gdi_cookie } = req.cookies;
+      const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
+
       await db.connect();
       const newExpense = new Expense({
-        userRef: "64121df34b2cf0f7fab430ca",
+        // @ts-ignore
+        userRef: cookie?.data?._id,
         description: "Burgers",
         date: transformDateToISO("13-03-2023", "start"),
         type: "64126a713045b55771427ee0",
