@@ -12,8 +12,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const expenses = await Expense.find({
         date: day,
       }).populate("type")
-
-      console.log({ expenses });
+      
       res.json({
         expenses,
       });
