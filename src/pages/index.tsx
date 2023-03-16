@@ -19,7 +19,6 @@ export default function LoginPage() {
       setLoading(true);
       let { email, password } = values;
       if (email && password) {
-        console.log({ values });
         const user = { email, password };
         await login!(user);
       }

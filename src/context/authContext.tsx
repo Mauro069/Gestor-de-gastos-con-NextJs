@@ -51,7 +51,6 @@ export const AuthProvider: React.FC<{
   const login = async (user: IUser) => {
     try {
       const response = await axios.post("/api/auth/login", user);
-      console.log({ responseLogin: response });
 
       if (response.data.ok) {
         const authData: AuthState = {
@@ -62,10 +61,10 @@ export const AuthProvider: React.FC<{
         setAuthState(authData);
         router.push("/home");
       } else {
-        console.log("Error", response.data.msj);
+        console.error("Error", response.data.msj);
       }
     } catch (error) {
-      console.log("Error en login", error);
+      console.error("Error en login", error);
     }
   };
 

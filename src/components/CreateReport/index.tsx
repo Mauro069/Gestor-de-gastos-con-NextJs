@@ -1,5 +1,5 @@
 import { useAuth, useForm, useReports } from "@/hooks";
-import { months } from "@/utils/months";
+import { months } from "@/utils/monthsAndDays";
 import { useState } from "react";
 import { Button } from "../Button";
 import { Dropdown } from "../Dropdown";
@@ -36,12 +36,12 @@ export const CreateReport = () => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <h4>Crear reporte</h4>
       <div className={styles.inputs}>
-        <Dropdown
+        {/* <Dropdown
           placeholder={"Mes..."}
           options={months}
           onSelect={changeMonth}
           optionSelected={month}
-        />
+        /> */}
         <input
           autoComplete="off"
           onChange={handleChange}

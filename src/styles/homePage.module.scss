@@ -1,38 +1,79 @@
-@import '../styles/colors.scss';
+@import "../styles/colors.scss";
 
 .pageContainer {
   background: $blueDark;
   min-height: 100vh;
+  max-width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.welcome {
-  margin: 0 auto;
-  width: 95%;
   color: white;
-  padding: 2rem 0;
-  max-width: 1350px;
-  margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
+  padding: 2rem 5rem;
 
-  h1 {
-    font-weight: 400;
-    font-size: 40px;
+  .welcome {
+    font-size: 48px;
   }
 
-  h4 {
-    font-weight: 400;
-    font-size: 28px;
+  .button {
+    width: fit-content;
+    padding: 1rem;
   }
 
-  @media (max-width: 1100px) {
+  .weekContainer {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 10px;
+  }
+
+  .week {
+    justify-content: space-between;
+    display: flex;
+    gap: 10px;
+
+    .loaderContainer {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nameOfDay {
+      background: #ffffff15;
+      width: 200px;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-self: flex-end;
     gap: 1rem;
-    text-align: center;
+
+    .button {
+      background: white;
+      border-radius: 3px;
+      padding: 0.3rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    .button:last-child {
+      svg {
+        transform: rotate(-180deg);
+      }
+    }
   }
 }
