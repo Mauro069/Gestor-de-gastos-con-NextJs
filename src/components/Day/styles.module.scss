@@ -1,8 +1,14 @@
+@import "../../styles/animations.scss";
+
 .dayContainer {
   border: 2px solid #2a2f39;
   width: 200px;
   height: 200px;
   position: relative;
+  opacity: 0;
+  animation: fade-in 0.4s ease-in-out forwards;
+  border: 1px solid transparent;
+  cursor: pointer;
 
   .dayNumber {
     position: absolute;
@@ -29,12 +35,16 @@
     padding-bottom: 0.6rem;
 
     span {
-      background-color: #0500ff50;
       padding: 3px 6px;
       width: fit-content;
       border-radius: 3px;
     }
   }
+}
+
+.dayContainer:hover {
+  transition: 0.3s;
+  border: 1px solid white;
 }
 
 .todayContainer {
