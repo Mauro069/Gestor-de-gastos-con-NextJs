@@ -10,8 +10,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const { daysBody: days } = req.body;
       const { gdi_cookie } = req.cookies;
       const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
-      
 
+      await db.connect();
       const getExpensesByDate = async (date: string) => {
         // @ts-ignore
         // prettier-ignore
@@ -27,7 +27,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       );
 
       res.status(200).json({ weekExpenses: expenses });
-      // await db.disconnect();
+      await db.disconnect();
     } catch (error) {
       res
         .status(500)
