@@ -1,23 +1,45 @@
 import { useAuth, useWeeklyExpenses, useWeekPicker } from "@/hooks";
 import { months, nameOfsDays } from "@/utils/monthsAndDays";
+import { withPoints } from "@/utils/withPoints";
 import { Day, Loader } from "@/components";
 import styles from "../styles/homePage.module.scss";
 
 const HomePage = (): JSX.Element => {
-  const { week, handlePrevWeekClick, handleNextWeekClick, days } =
-    useWeekPicker();
+  const {
+    week,
+    handlePrevWeekClick,
+    handleNextWeekClick,
+    days,
+    prevWeekEnd,
+    prevWeekStart,
+  } = useWeekPicker();
   const { user } = useAuth();
-  const { isLoading, error, data }: any = useWeeklyExpenses(days);
+  const { isLoading, data }: any = useWeeklyExpenses(
+    days,
+    prevWeekEnd,
+    prevWeekStart
+  );
 
   return (
     <div className={styles.pageContainer}>
-      <span className={styles.welcome}>
-        Hola, <b>{user?.firstname}!</b>
-      </span>
-      <div>
-        <span>
-          Hoy Gastaste <h1>{}</h1>{" "}
+      <div className={styles.welcomeContainer}>
+        <span className={styles.welcome}>
+          Hola, <b>{user?.firstname}!</b>
         </span>
+        <div className={styles.expensesAmountContainer}>
+          <span className={styles.subtitle}>Esta semana gastaste</span>
+          <div className={styles.expensesAmount}>
+            <h1>${withPoints(data?.thisWeekExpensesAmount)}</h1>{" "}
+            <div
+              style={{
+                background: data?.percentage > 0 ? "#FF0000" : "#01BB1F",
+              }}
+              className={styles.percentage}
+            >
+              {withPoints(data?.percentage)}%
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className={styles.weekContainer}>
