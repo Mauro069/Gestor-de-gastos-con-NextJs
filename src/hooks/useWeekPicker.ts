@@ -7,13 +7,9 @@ interface WeekPicker {
   handleNextWeekClick: () => void;
   days: string[];
   today: string | Dayjs;
-  currentWeekStart: string;
-  currentWeekEnd: string;
-  previousWeekStart: string;
-  previousWeekEnd: string;
 }
 
-const useWeekPicker = (): WeekPicker => {
+export const useWeekPicker = (): WeekPicker => {
   const [week, setWeek] = useState<Dayjs>(
     dayjs().startOf("week").add(1, "day")
   );
@@ -36,13 +32,8 @@ const useWeekPicker = (): WeekPicker => {
     day.isBefore(endOfWeek);
     day = day.add(1, "day")
   ) {
-    days.push(day.format("DD/MM/YYYY"));
+    days.push(day.format("DD-MM-YYYY"));
   }
-
-  const currentWeekStart = startOfWeek.format("DD-MM-YYYY");
-  const currentWeekEnd = endOfWeek.format("DD-MM-YYYY");
-  const previousWeekStart = startOfWeek.subtract(1, "week").format("DD-MM-YYYY");
-  const previousWeekEnd = endOfWeek.subtract(1, "week").format("DD-MM-YYYY");
 
   return {
     week,
@@ -50,11 +41,6 @@ const useWeekPicker = (): WeekPicker => {
     handleNextWeekClick,
     days,
     today,
-    currentWeekStart,
-    currentWeekEnd,
-    previousWeekStart,
-    previousWeekEnd
   };
 };
 
-export default useWeekPicker;
