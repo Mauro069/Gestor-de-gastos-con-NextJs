@@ -1,6 +1,7 @@
 import { useWeekPicker } from "@/hooks";
 import useExpenseTypeById from "@/hooks/useExpenseTypeById";
 import { IExpense } from "@/models";
+import Link from "next/link";
 import styles from "./styles.module.scss";
 
 export const Day = ({ day, expenses }: any) => {
@@ -12,9 +13,11 @@ export const Day = ({ day, expenses }: any) => {
   let todayNumber = today?.split("/")[0];
 
   return (
-    <div
-      // prettier-ignore
-      className={onlyDay === todayNumber ? styles.todayContainer : styles.dayContainer}
+    <Link
+      className={
+        onlyDay === todayNumber ? styles.todayContainer : styles.dayContainer
+      }
+      href={`/day/${day}`}
       key={day}
     >
       <div className={styles.dayNumber}>{onlyDay}</div>
@@ -26,6 +29,6 @@ export const Day = ({ day, expenses }: any) => {
             </span>
           ))}
       </div>
-    </div>
+    </Link>
   );
 };

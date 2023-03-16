@@ -1,13 +1,14 @@
 @import "../../styles/animations.scss";
 
 .dayContainer {
-  border: 2px solid #2a2f39;
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid #ffffff15;
   width: 200px;
   height: 200px;
   position: relative;
   opacity: 0;
   animation: fade-in 0.4s ease-in-out forwards;
-  border: 1px solid transparent;
   cursor: pointer;
 
   .dayNumber {
@@ -44,7 +45,7 @@
 
 .dayContainer:hover {
   transition: 0.3s;
-  border: 1px solid white;
+  border: 2px solid white;
 }
 
 .todayContainer {
