@@ -29,8 +29,14 @@ export const useForm = <T extends Record<string, any>>({
   const [errors, setErrors] = useState<FormErrors<T>>({});
 
   // Función que se ejecuta cuando se cambia el valor de un campo del formulario
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
+
     // Actualiza el estado de los valores del formulario
     setValues((prevState) => ({ ...prevState, [name]: value }));
   };

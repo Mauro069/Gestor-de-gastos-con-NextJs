@@ -1,7 +1,7 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios, { AxiosError } from "axios";
 import { ObjectId } from "mongoose";
-import { IExpenseType, IReport } from "@/models";
+import { IExpense, IExpenseType, IReport } from "@/models";
 
 type Expense = {
   _id?: string;
@@ -28,10 +28,27 @@ export const useExpenses = (day: any) => {
     return data;
   });
 
+  const { mutate: createExpense } = useMutation<
+    IExpense,
+    AxiosError<ApiError>,
+    IExpense
+  >(
+    async (newExpense: IExpense) => {
+      const response = await axios.post("/api/expenses", newExpense);
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+
   return {
     todayExpensesAmount: data?.todayExpensesAmount,
     expenses: data?.expenses,
     percentage: data?.percentage,
+    createExpense,
     isLoading,
     error,
     refetch,
