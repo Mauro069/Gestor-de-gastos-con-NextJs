@@ -8,6 +8,7 @@ export interface IExpense extends Document {
   description: string;
   type: ObjectId | IExpenseType;
   userRef: ObjectId | IUser;
+  hour: any;
   createdAt: string;
   updatedAt: string;
 }
@@ -18,6 +19,7 @@ const ExpenseSchema: Schema = new Schema(
     date: { type: String, required: true },
     amount: { type: Number, required: true },
     description: { type: String, required: true },
+    hour: { type: String },
     type: { type: Schema.Types.ObjectId, ref: "ExpenseType", required: true },
   },
   {
