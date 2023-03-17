@@ -34,6 +34,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           $gte: transformDateToISO(days[0], "start"),
           $lte: transformDateToISO(days[days.length - 1], "end"),
         },
+        // @ts-ignore
+        userRef: cookie?.data?._id,
       });
 
       const prevWeekExpenses = await Expense.find({
@@ -41,6 +43,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           $gte: transformDateToISO(prevWeekStart, "start"),
           $lte: transformDateToISO(prevWeekEnd, "end"),
         },
+        // @ts-ignore
+        userRef: cookie?.data?._id,
       });
 
       const prevWeekExpensesAmount = getAmount(prevWeekExpenses);
