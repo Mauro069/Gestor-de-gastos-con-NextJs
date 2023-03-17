@@ -10,9 +10,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // @ts-ignore
     const idsArr = ids?.includes("-") ? ids.split("-") : ids;
 
+    console.log({ idsArr });
+
     try {
       await db.connect();
-      const expenseTypes = await ExpenseType.find({ _id: { $in: idsArr } });
+      const expenseTypes = idsArr
+        ? await ExpenseType.find({ _id: { $in: idsArr } })
+        : await ExpenseType.find();
 
       res.json({
         expenseTypes,
@@ -27,7 +31,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       await db.connect();
       const newExpenseType = new ExpenseType({
-        name: "Compras",
+        name: "Peluqueria",
         color: "FF7A00",
       });
 
