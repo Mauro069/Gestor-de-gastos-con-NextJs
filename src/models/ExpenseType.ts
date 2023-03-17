@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IExpenseType {
+  _id: string;
   name: string;
   color: string;
   createdAt: string;
