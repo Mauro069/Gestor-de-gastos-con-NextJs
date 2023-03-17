@@ -1,9 +1,11 @@
+import { transformDateToISO } from "@/utils/transformDateToISO";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getAmount } from "@/utils/getExpensesAmount";
+import { getPercentage } from "@/utils/getPercentage";
 import { withAuth } from "@/lib/withAuth";
 import { verify } from "jsonwebtoken";
 import Expense from "@/models/Expense";
 import db from "@/utils/db";
-import { transformDateToISO } from "@/utils/transformDateToISO";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -41,20 +43,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       });
 
-      const prevWeekExpensesAmount = prevWeekExpenses.reduce(
-        (acc, cur) => acc + cur.amount,
-        0
-      );
-      const thisWeekExpensesAmount = thisWeekExpenses.reduce(
-        (acc, cur) => acc + cur.amount,
-        0
-      );
+      const prevWeekExpensesAmount = getAmount(prevWeekExpenses);
+      const thisWeekExpensesAmount = getAmount(thisWeekExpenses);
 
-      const dif = thisWeekExpensesAmount - prevWeekExpensesAmount;
-      const percentage =
-        dif === thisWeekExpensesAmount
-          ? thisWeekExpensesAmount
-          : (dif / prevWeekExpensesAmount) * 100;
+      const percentage = getPercentage(
+        prevWeekExpensesAmount,
+        thisWeekExpensesAmount
+      );
 
       res
         .status(200)
