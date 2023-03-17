@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import axios, { AxiosError } from "axios";
 import { ObjectId } from "mongoose";
 import { IExpenseType, IReport } from "@/models";
@@ -20,18 +20,18 @@ type ApiError = {
 };
 
 export const useExpenses = (day: any) => {
-  const {
-    data: expenses,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery<Expense[], AxiosError<ApiError>>(["expenses", day], async () => {
+  const { data, isLoading, error, refetch } = useQuery<
+    { expenses: Expense[]; todayExpensesAmount: number; percentage: number },
+    AxiosError<ApiError>
+  >(["expenses", day], async () => {
     const { data } = await axios.get(`/api/expenses/${day}`);
-    return data.expenses;
+    return data;
   });
 
   return {
-    expenses,
+    todayExpensesAmount: data?.todayExpensesAmount,
+    expenses: data?.expenses,
+    percentage: data?.percentage,
     isLoading,
     error,
     refetch,
