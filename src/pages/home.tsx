@@ -1,7 +1,9 @@
 import { useAuth, useWeeklyExpenses, useWeekPicker } from "@/hooks";
+import { validatePercentage } from "@/utils/validatePercentage";
 import { months, nameOfsDays } from "@/utils/monthsAndDays";
 import { withPoints } from "@/utils/withPoints";
 import { Day, Loader } from "@/components";
+
 import styles from "../styles/homePage.module.scss";
 
 const HomePage = (): JSX.Element => {
@@ -27,17 +29,21 @@ const HomePage = (): JSX.Element => {
           Hola, <b>{user?.firstname}!</b>
         </span>
         <div className={styles.expensesAmountContainer}>
-          <span className={styles.subtitle}>Esta semana gastaste</span>
+          <span className={styles.subtitle}>
+            Esta semana gastaste{" "}
+            {validatePercentage(data?.percentage, "mas", "menos")} que la semana
+            anterior
+          </span>
           <div className={styles.expensesAmount}>
             <h1>${withPoints(data?.thisWeekExpensesAmount)}</h1>{" "}
             <div
               style={{
-                background:
-                  data?.percentage > 0
-                    ? "#FF0000"
-                    : data?.percentage < 0
-                    ? "#01BB1F"
-                    : "#FCC70A",
+                background: validatePercentage(
+                  data?.percentage,
+                  "#FF0000",
+                  "#01BB1F",
+                  "#FCC70A"
+                ),
               }}
               className={styles.percentage}
             >
@@ -62,12 +68,7 @@ const HomePage = (): JSX.Element => {
         <div className={styles.week}>
           {!isLoading && data?.weekExpenses ? (
             data?.weekExpenses.map(({ date, expenses }: any, index: number) => (
-              <Day
-                key={date}
-                day={date}
-                expenses={expenses}
-                dayName={index + 1}
-              />
+              <Day key={date} day={date} expenses={expenses} dayName={index} />
             ))
           ) : (
             <div className={styles.loaderContainer}>
