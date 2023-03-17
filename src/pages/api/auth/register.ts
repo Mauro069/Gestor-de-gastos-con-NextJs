@@ -3,6 +3,7 @@ import User, { IUserSchema } from "@/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import db from "@/utils/db";
+import { serialize } from "cookie";
 
 export default async function handler(
   req: NextApiRequest,
@@ -47,6 +48,18 @@ export default async function handler(
         const token = jwt.sign({ data: rest }, process.env.JWT_SECRET!, {
           expiresIn: 86400,
         });
+
+        const serialized = serialize("gdi_cookie", token, {
+          // Solo se puede acceder desde HTTP, osea que el navegador no lo va a mostrar
+          httpOnly: false,
+          // Solo se activa si esta en produccion
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          maxAge: 86400,
+          path: "/",
+        });
+
+        res.setHeader("Set-cookie", serialized);
 
         await db.disconnect();
         res.status(201).json({

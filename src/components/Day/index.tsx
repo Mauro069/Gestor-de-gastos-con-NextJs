@@ -1,9 +1,12 @@
-import { useWeekPicker } from "@/hooks";
 import useExpenseTypeById from "@/hooks/useExpenseTypeById";
-import { IExpense } from "@/models";
+import { nameOfsDays } from "@/utils/monthsAndDays";
+import { IExpense, IExpenseType } from "@/models";
+import { useWeekPicker } from "@/hooks";
+import Link from "next/link";
+
 import styles from "./styles.module.scss";
 
-export const Day = ({ day, expenses }: any) => {
+export const Day = ({ day, expenses, dayName }: any) => {
   const { today } = useWeekPicker();
   let ids = expenses && expenses.map((expense: IExpense) => expense.type);
   const { data } = useExpenseTypeById(ids);
@@ -12,20 +15,22 @@ export const Day = ({ day, expenses }: any) => {
   let todayNumber = today?.split("/")[0];
 
   return (
-    <div
-      // prettier-ignore
-      className={onlyDay === todayNumber ? styles.todayContainer : styles.dayContainer}
+    <Link
+      className={
+        onlyDay === todayNumber ? styles.todayContainer : styles.dayContainer
+      }
+      href={`/day/${day}?nameDay=${nameOfsDays[dayName]}`}
       key={day}
     >
       <div className={styles.dayNumber}>{onlyDay}</div>
       <div className={styles.expenses}>
         {data?.length > 0 &&
-          data?.map((type: any) => (
-            <span style={{ background: `#${type?.color}50` }} key={type}>
+          data?.slice(0, 3).map((type: IExpenseType) => (
+            <span style={{ background: `#${type?.color}50` }} key={type._id}>
               {type?.name}
             </span>
           ))}
       </div>
-    </div>
+    </Link>
   );
 };

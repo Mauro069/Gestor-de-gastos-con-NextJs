@@ -2,26 +2,39 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { withAuth } from "@/lib/withAuth";
 import db from "@/utils/db";
 import Expense from "@/models/Expense";
+import { transformDateToISO } from "@/utils/transformDateToISO";
+import { verify } from "jsonwebtoken";
+import { isValidObjectId } from "mongoose";
+import ExpenseType from "@/models/ExpenseType";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     try {
+      const { gdi_cookie } = req.cookies;
+      const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
+
+      const { description, hour, type, date, amount } = req.body;
+
       await db.connect();
-      // const newExpense = new Expense({
-      //   userRef: "64121df34b2cf0f7fab430ca",
-      //   description: "Pizzas",
-      //   date: "17-03-2023",
-      //   type: "64126a713045b55771427ee0",
-      //   amount: 20000,
-      // })
+      if (isValidObjectId(type._id)) {
+        const existType = await ExpenseType.findById(type);
 
-      // await newExpense.save();
+        if (existType) {
+          const newExpense = new Expense({
+            // @ts-ignore
+            userRef: cookie?.data?._id,
+            description: description,
+            date: transformDateToISO(date, "start"),
+            hour,
+            type,
+            amount,
+          });
 
-      const expense = await Expense.find({
-        type: "64126a713045b55771427ee0",
-      })
-      await db.disconnect();
-      res.json({ msj: "Gasto cargado correctamente", expense: expense });
+          await newExpense.save();
+          await db.disconnect();
+          res.json({ msj: "Gasto cargado correctamente", newExpense });
+        }
+      }
     } catch (error) {
       res.json({ msj: "Ocurrio un error", error });
     }

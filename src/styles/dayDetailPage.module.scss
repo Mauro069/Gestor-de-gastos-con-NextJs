@@ -10,11 +10,34 @@
   justify-content: space-between;
   color: white;
   padding: 3rem 5rem;
+  padding-bottom: 0;
+
+  .topContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
 
   .welcomeContainer {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+
+    small {
+      a {
+        margin-left: 5px;
+        padding: .3rem;
+        background-color: #ffffff25;
+        border-radius: 3px;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      a:hover {
+        transition: 0.3s;
+        text-decoration: underline;
+      }
+    }
 
     .welcome {
       font-size: 48px;

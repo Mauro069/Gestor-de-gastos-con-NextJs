@@ -1,4 +1,7 @@
+import { transformDateToISO } from "@/utils/transformDateToISO";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getAmount } from "@/utils/getExpensesAmount";
+import { getPercentage } from "@/utils/getPercentage";
 import { withAuth } from "@/lib/withAuth";
 import { verify } from "jsonwebtoken";
 import Expense from "@/models/Expense";
@@ -7,7 +10,7 @@ import db from "@/utils/db";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      const { daysBody: days } = req.body;
+      const { daysBody: days, prevWeekStart, prevWeekEnd } = req.body;
       const { gdi_cookie } = req.cookies;
       const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
 
@@ -15,7 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const getExpensesByDate = async (date: string) => {
         // @ts-ignore
         // prettier-ignore
-        const expenses = await Expense.find({ date, userRef: cookie?.data?._id })
+        const expenses = await Expense.find({ date: transformDateToISO(date, "start"), userRef: cookie?.data?._id })
         return expenses;
       };
 
@@ -26,7 +29,36 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         })
       );
 
-      res.status(200).json({ weekExpenses: expenses });
+      const thisWeekExpenses = await Expense.find({
+        date: {
+          $gte: transformDateToISO(days[0], "start"),
+          $lte: transformDateToISO(days[days.length - 1], "end"),
+        },
+        // @ts-ignore
+        userRef: cookie?.data?._id,
+      });
+
+      const prevWeekExpenses = await Expense.find({
+        date: {
+          $gte: transformDateToISO(prevWeekStart, "start"),
+          $lte: transformDateToISO(prevWeekEnd, "end"),
+        },
+        // @ts-ignore
+        userRef: cookie?.data?._id,
+      });
+
+      const prevWeekExpensesAmount = getAmount(prevWeekExpenses);
+      const thisWeekExpensesAmount = getAmount(thisWeekExpenses);
+
+      const percentage = getPercentage(
+        prevWeekExpensesAmount,
+        thisWeekExpensesAmount
+      );
+
+      res
+        .status(200)
+        .json({ weekExpenses: expenses, thisWeekExpensesAmount, percentage });
+
       await db.disconnect();
     } catch (error) {
       res

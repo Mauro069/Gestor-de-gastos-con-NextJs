@@ -1,0 +1,87 @@
+.form {
+  width: 350px;
+  border: 3px solid #ffffff10;
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  button {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  .textarea {
+    padding-top: 1rem;
+    resize: none;
+    border: none;
+    background: #2e2d34;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: 400;
+  }
+
+  .textarea::-webkit-scrollbar {
+    width: 2px;
+    background: #251f2b;
+  }
+
+  .textarea::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    border: 3px solid #ffffff25;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  .input,
+  select {
+    border: none;
+    background: #2e2d34;
+    height: 35px;
+    padding: 0 0.5rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: 400;
+
+    option {
+      padding: 0.5rem;
+      background-color: red;
+    }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    appearance: textfield;
+  }
+}
