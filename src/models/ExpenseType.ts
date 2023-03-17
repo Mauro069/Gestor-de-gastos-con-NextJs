@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IExpenseType extends Document {
+export interface IExpenseType {
   name: string;
   color: string;
   createdAt: string;

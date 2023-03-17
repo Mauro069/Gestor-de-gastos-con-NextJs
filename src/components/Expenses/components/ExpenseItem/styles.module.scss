@@ -1,0 +1,41 @@
+.expense {
+  min-height: 50px;
+  width: 100%;
+  display: flex;
+  background: #2a2f39;
+  border-bottom: 1px solid #ffffff10;
+  font-size: 16px;
+  font-weight: 400;
+
+  .item {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+
+    .type {
+      width: fit-content;
+      padding: 3px 6px;
+      border-radius: 3px;
+    }
+  }
+
+  .item:nth-child(1) {
+    width: 15%;
+  }
+
+  .item:nth-child(2) {
+    width: 20%;
+  }
+
+  .item:nth-child(3) {
+    width: 20%;
+  }
+
+  .item:nth-child(4) {
+    width: 20%;
+  }
+
+  .item:nth-child(5) {
+    width: 25%;
+  }
+}

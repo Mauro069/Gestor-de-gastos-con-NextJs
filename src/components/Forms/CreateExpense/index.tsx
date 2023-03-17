@@ -20,7 +20,7 @@ export const CreateExpense = ({ createExpense }: any) => {
     onSubmit: async (values) => {
       setLoading(true);
 
-      if (values.time && values.amount && values.description && type) {
+      if (values.time && values.amount && type) {
         const { amount, description, time } = values;
 
         createExpense({
@@ -31,6 +31,7 @@ export const CreateExpense = ({ createExpense }: any) => {
           type,
         });
       }
+
       setLoading(false);
     },
   });
@@ -41,7 +42,7 @@ export const CreateExpense = ({ createExpense }: any) => {
       <div className={styles.row}>
         <div className={styles.inputContainer}>
           <label className={styles.label} htmlFor="time">
-            Hora
+            Hora *
           </label>
           <input
             onChange={handleChange}
@@ -54,7 +55,7 @@ export const CreateExpense = ({ createExpense }: any) => {
 
         <div className={styles.inputContainer}>
           <label className={styles.label} htmlFor="amount">
-            Importe
+            Importe *
           </label>
           <input
             onChange={handleChange}
@@ -70,7 +71,7 @@ export const CreateExpense = ({ createExpense }: any) => {
 
       <div className={styles.inputContainer}>
         <label className={styles.label} htmlFor="type">
-          Tipo de gasto
+          Tipo de gasto *
         </label>
         <Dropdown
           placeholder="Tipo de gasto..."
@@ -83,7 +84,7 @@ export const CreateExpense = ({ createExpense }: any) => {
 
       <div className={styles.inputContainer}>
         <label className={styles.label} htmlFor="description">
-          Cantidad
+          Descripción
         </label>
         <textarea
           onChange={handleChange}

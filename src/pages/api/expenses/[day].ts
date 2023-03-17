@@ -19,7 +19,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         date: day,
         // @ts-ignore
         userRef: cookie?.data?._id,
-      });
+      }).sort({ hour: 1 });
 
       const todayExpensesAmount = getAmount(expenses);
       // @ts-ignore

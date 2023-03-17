@@ -10,10 +10,11 @@
   justify-content: space-between;
   color: white;
   padding: 3rem 5rem;
+  padding-bottom: 0;
 
   .topContainer {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
   }
 

@@ -7,6 +7,7 @@ import ExpenseType from "@/models/ExpenseType";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const { ids } = req.query;
+    console.log({ ids });
     // @ts-ignore
     const idsArr = ids?.includes("-") ? ids.split("-") : ids;
 

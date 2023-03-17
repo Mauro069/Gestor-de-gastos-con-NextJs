@@ -2,6 +2,7 @@ import { validatePercentage } from "@/utils/validatePercentage";
 import { transformDateToISO } from "@/utils/transformDateToISO";
 import { CreateExpense } from "@/components/Forms";
 import { withPoints } from "@/utils/withPoints";
+import { Expenses } from "@/components";
 import { useRouter } from "next/router";
 import { useExpenses } from "@/hooks";
 import Link from "next/link";
@@ -47,9 +48,11 @@ const DayDetailPage = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <CreateExpense createExpense={createExpense}/>
+        <CreateExpense createExpense={createExpense} />
       </div>
-      <pre>{JSON.stringify({ expenses, todayExpensesAmount }, null, 2)}</pre>
+
+      {/* @ts-ignore */}
+      <Expenses expenses={expenses} />
     </div>
   );
 };
