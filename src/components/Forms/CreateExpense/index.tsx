@@ -54,7 +54,7 @@ export const CreateExpense = ({ createExpense }: any) => {
 
         <div className={styles.inputContainer}>
           <label className={styles.label} htmlFor="amount">
-            Cantidad
+            Importe
           </label>
           <input
             onChange={handleChange}
