@@ -58,6 +58,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res
         .status(200)
         .json({ weekExpenses: expenses, thisWeekExpensesAmount, percentage });
+
       await db.disconnect();
     } catch (error) {
       res
