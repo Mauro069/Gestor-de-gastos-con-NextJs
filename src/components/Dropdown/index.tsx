@@ -1,11 +1,12 @@
+import { IExpenseType } from "@/models";
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
   placeholder: string;
-  options: any[];
-  onSelect: (optionSelected: string) => void;
-  optionSelected: string | null;
+  options: IExpenseType[];
+  onSelect: (optionSelected: IExpenseType) => void;
+  optionSelected: IExpenseType | null;
 }
 
 export const Dropdown = ({
@@ -22,24 +23,37 @@ export const Dropdown = ({
         onClick={() => setOpen(!open)}
         className={open ? styles.selectActive : styles.select}
       >
-        <span className={!optionSelected ? styles.withOpacity : ""}>
-          {optionSelected || placeholder}
-        </span>
+        {optionSelected?.name ? (
+          <p
+            className={styles.expenseType}
+            style={{ background: `#${optionSelected.color}50` }}
+          >
+            <span>{optionSelected.name}</span>
+          </p>
+        ) : (
+          <span className={styles.withOpacity}>{placeholder}</span>
+        )}
+
         <Svg open={open} />
       </div>
       {open && (
         <div className={styles.options}>
-          {options.map((option: string) => (
-            <p
+          {options.map((option: IExpenseType) => (
+            <div
+              key={option._id}
+              className={styles.option}
               onClick={() => {
                 setOpen(false);
                 onSelect(option);
               }}
-              key={option}
-              className={styles.option}
             >
-              <span>{option}</span>
-            </p>
+              <p
+                className={styles.expenseType}
+                style={{ background: `#${option.color}50` }}
+              >
+                <span>{option.name}</span>
+              </p>
+            </div>
           ))}
         </div>
       )}
