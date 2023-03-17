@@ -11,6 +11,12 @@
   color: white;
   padding: 3rem 5rem;
 
+  .topContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .welcomeContainer {
     display: flex;
     flex-direction: column;
