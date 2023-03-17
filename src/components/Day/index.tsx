@@ -1,8 +1,9 @@
-import { useWeekPicker } from "@/hooks";
 import useExpenseTypeById from "@/hooks/useExpenseTypeById";
-import { IExpense } from "@/models";
 import { nameOfsDays } from "@/utils/monthsAndDays";
+import { IExpense, IExpenseType } from "@/models";
+import { useWeekPicker } from "@/hooks";
 import Link from "next/link";
+
 import styles from "./styles.module.scss";
 
 export const Day = ({ day, expenses, dayName }: any) => {
@@ -24,8 +25,8 @@ export const Day = ({ day, expenses, dayName }: any) => {
       <div className={styles.dayNumber}>{onlyDay}</div>
       <div className={styles.expenses}>
         {data?.length > 0 &&
-          data?.map((type: any) => (
-            <span style={{ background: `#${type?.color}50` }} key={type}>
+          data?.map((type: IExpenseType) => (
+            <span style={{ background: `#${type?.color}50` }} key={type._id}>
               {type?.name}
             </span>
           ))}
