@@ -25,7 +25,7 @@ export const Day = ({ day, expenses, dayName }: any) => {
       <div className={styles.dayNumber}>{onlyDay}</div>
       <div className={styles.expenses}>
         {data?.length > 0 &&
-          data?.map((type: IExpenseType) => (
+          data?.slice(0, 3).map((type: IExpenseType) => (
             <span style={{ background: `#${type?.color}50` }} key={type._id}>
               {type?.name}
             </span>
