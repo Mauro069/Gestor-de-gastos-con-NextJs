@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "@/context/authContext";
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from "next/app";
 
 import "@/styles/globals.scss";
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Component {...pageProps} />
+        <Analytics />
       </AuthProvider>
     </QueryClientProvider>
   );
