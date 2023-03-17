@@ -17,7 +17,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       await db.connect();
       const expenses: IExpense[] = await Expense.find({
         date: day,
-        userRef: cookie?.data?._id
+        // @ts-ignore
+        userRef: cookie?.data?._id,
       });
 
       const todayExpensesAmount = getAmount(expenses);
@@ -25,7 +26,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const previousDay = getPreviousDay(day);
       const previousDayExpenses: IExpense[] = await Expense.find({
         date: previousDay,
-        userRef: cookie?.data?._id
+        // @ts-ignore
+        userRef: cookie?.data?._id,
       });
       const previousDayExpensesAmount = getAmount(previousDayExpenses);
       const percentage = getPercentage(
