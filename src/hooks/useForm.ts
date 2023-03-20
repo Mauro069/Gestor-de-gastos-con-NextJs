@@ -65,6 +65,7 @@ export const useForm = <T extends Record<string, any>>({
     } else {
       // Si no hay errores de validación, llama a la función `onSubmit` con los valores del formulario
       onSubmit(values);
+      setValues(initialValues);
     }
   };
 
