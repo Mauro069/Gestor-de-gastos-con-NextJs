@@ -26,7 +26,7 @@
     small {
       a {
         margin-left: 5px;
-        padding: .3rem;
+        padding: 0.3rem;
         background-color: #ffffff25;
         border-radius: 3px;
         text-decoration: none;
@@ -143,6 +143,20 @@
       svg {
         transform: rotate(-180deg);
       }
+    }
+  }
+}
+
+@media (max-width: 1165px) {
+  .pageContainer {
+    padding: 0;
+    overflow: hidden;
+
+    .topContainer {
+      padding: 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
   }
 }
