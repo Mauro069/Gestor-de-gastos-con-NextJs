@@ -1,9 +1,10 @@
+import NotificationContext from "@/context/notificationContext";
 import useExpenseTypesQuery from "@/hooks/useExpenseTypeById";
 import { Dropdown } from "@/components/Dropdown";
 import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import { useForm } from "@/hooks";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import styles from "./styles.module.scss";
 
@@ -11,6 +12,7 @@ export const CreateExpense = ({ createExpense }: any) => {
   const { query } = useRouter();
   const [type, setType] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { showNotification } = useContext(NotificationContext);
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       time: "",
@@ -29,6 +31,22 @@ export const CreateExpense = ({ createExpense }: any) => {
           description,
           amount,
           type,
+        });
+
+        setType(null)
+
+        // @ts-ignore
+        showNotification({
+          msj: "Gasto agregado correctamente",
+          open: true,
+          status: "success",
+        });
+      } else {
+        // @ts-ignore
+        showNotification({
+          msj: "Te falto enviar algun campo obligatorio!",
+          open: true,
+          status: "error",
         });
       }
 
@@ -49,6 +67,7 @@ export const CreateExpense = ({ createExpense }: any) => {
             className={styles.input}
             id="time"
             name="time"
+            value={values.time}
             type="time"
           />
         </div>

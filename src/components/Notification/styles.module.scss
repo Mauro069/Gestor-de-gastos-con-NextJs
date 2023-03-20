@@ -1,0 +1,64 @@
+@import "../../styles/animations.scss";
+
+.notification {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  z-index: 5;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  animation: fade-in 0.4s ease-in-out forwards;
+
+  .error {
+    height: 50px;
+    width: 50px;
+    background-color: #ee3335;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 0 0 8px;
+
+    svg {
+      height: 30px;
+    }
+  }
+
+  .success {
+    @extend .error;
+    background-color: #017042;
+  }
+
+  .textGreen {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(227, 227, 227);
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 0 8px 8px 0;
+    border: 1px solid rgb(199, 199, 199);
+    border-right: 3px solid #017042;
+
+    p {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  .textRed {
+    @extend .textGreen;
+    border-right: 3px solid #ee3335;
+  }
+}

@@ -1,15 +1,17 @@
+import NotificationContext from "@/context/notificationContext";
+import { useContext, useState } from "react";
 import { Button, Input } from "@/components";
 import { useAuth, useForm } from "@/hooks";
 import { IUser } from "@/models";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import styles from "../styles/authPage.module.scss";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
+  const { showNotification } = useContext(NotificationContext);
   const { values, handleChange, handleSubmit } = useForm<IUser>({
     initialValues: {
       email: "",
@@ -20,8 +22,23 @@ export default function LoginPage() {
       let { email, password } = values;
       if (email && password) {
         const user = { email, password };
-        await login!(user);
+        const response: any = await login!(user);
+
+        // @ts-ignore
+        showNotification({
+          msj: response?.msj || "Ocurrio un error, intenta nuevamente",
+          open: true,
+          status: response?.ok ? "success" : "error",
+        });
+      } else {
+        // @ts-ignore
+        showNotification({
+          msj: "Verifica los datos que estas enviando!",
+          open: true,
+          status: "error",
+        });
       }
+
       setLoading(false);
     },
   });

@@ -30,9 +30,11 @@ const HomePage = (): JSX.Element => {
         </span>
         <div className={styles.expensesAmountContainer}>
           <span className={styles.subtitle}>
-            Esta semana gastaste{" "}
-            {validatePercentage(data?.percentage, "mas", "menos")} que la semana
-            anterior
+            {validatePercentage(
+              data?.percentage,
+              "Esta semana gastaste más que la semana anterior",
+              "Esta semana gastaste menos que la semana anterior"
+            )}
           </span>
           <div className={styles.expensesAmount}>
             <h1>${withPoints(data?.thisWeekExpensesAmount)}</h1>{" "}

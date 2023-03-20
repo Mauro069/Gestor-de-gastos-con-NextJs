@@ -60,6 +60,8 @@ export const AuthProvider: React.FC<{
         localStorage.setItem("token", response.data.token);
         setAuthState(authData);
         router.push("/home");
+
+        return response.data;
       } else {
         console.error("Error", response.data.msj);
       }
@@ -79,6 +81,8 @@ export const AuthProvider: React.FC<{
         localStorage.setItem("token", response.data.token);
         setAuthState(authData);
         router.push("/home");
+
+        return response.data;
       }
     } catch (error) {
       console.error(error);
