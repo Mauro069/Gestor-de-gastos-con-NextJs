@@ -64,7 +64,8 @@
     position: relative;
 
     .imgContainer {
-      width: 600px;
+      width: 100vw;
+      max-width: 500px;
       height: 85%;
       background-color: white;
       position: absolute;
@@ -80,6 +81,40 @@
         object-fit: cover;
         border-radius: 30px;
       }
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .authPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    .formContainer {
+      width: 100%;
+
+      .form {
+        max-width: 500px;
+        width: 90vw;
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .twoInputs {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+    }
+
+    .backgroundDark {
+      display: none;
     }
   }
 }

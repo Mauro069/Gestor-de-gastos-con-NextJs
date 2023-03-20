@@ -61,7 +61,7 @@ export const Expenses = ({ expenses }: { expenses: IExpense[] }) => {
           ))}
         </div>
         <div className={styles.expensesList} ref={containerRef}>
-          {expenses.length > 0 ? (
+          {expenses?.length > 0 ? (
             expenses?.map((expense: IExpense) => (
               <ExpenseItem key={expense._id} expense={expense} />
             ))
