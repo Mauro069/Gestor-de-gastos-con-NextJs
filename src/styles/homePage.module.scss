@@ -84,6 +84,12 @@
       align-items: center;
       justify-content: center;
     }
+  }
+
+  .weekNames {
+    justify-content: space-between;
+    display: flex;
+    gap: 10px;
 
     .nameOfDay {
       background: #ffffff15;
@@ -120,6 +126,31 @@
       svg {
         transform: rotate(-180deg);
       }
+    }
+  }
+}
+
+@media (max-width: 1366px) {
+  .pageContainer {
+    padding: 2rem 1rem;
+
+    .week {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .weekContainer {
+      margin-top: 2rem;
+
+      .weekNames {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-self: center;
     }
   }
 }

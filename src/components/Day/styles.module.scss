@@ -55,3 +55,10 @@
     border: 1px solid white;
   }
 }
+
+@media (max-width: 1366px) {
+  .dayContainer {
+    max-width: 300px;
+    width: 100%;
+  }
+}
