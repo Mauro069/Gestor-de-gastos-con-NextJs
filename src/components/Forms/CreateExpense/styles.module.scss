@@ -85,3 +85,14 @@
     appearance: textfield;
   }
 }
+
+@media (max-width: 1165px) {
+  .form {
+    width: 100%;
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}

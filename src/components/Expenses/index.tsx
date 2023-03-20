@@ -61,10 +61,15 @@ export const Expenses = ({ expenses }: { expenses: IExpense[] }) => {
           ))}
         </div>
         <div className={styles.expensesList} ref={containerRef}>
-          {expenses &&
+          {expenses?.length > 0 ? (
             expenses?.map((expense: IExpense) => (
               <ExpenseItem key={expense._id} expense={expense} />
-            ))}
+            ))
+          ) : (
+            <div className={styles.notFound}>
+              Aún no has cargado ningun gasto...
+            </div>
+          )}
           {expenses?.length > 8 && (
             <button
               className={styles.scrollBtn}

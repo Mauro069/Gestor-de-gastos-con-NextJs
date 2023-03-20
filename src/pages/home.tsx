@@ -58,7 +58,7 @@ const HomePage = (): JSX.Element => {
           {/* @ts-ignore */}
           {months[week.month() + 1]} {week.year()}
         </span>
-        <div className={styles.week}>
+        <div className={styles.weekNames}>
           {nameOfsDays.map((nameOfDay) => (
             <div key={nameOfDay} className={styles.nameOfDay}>
               {nameOfDay}
