@@ -5,9 +5,9 @@ export const validatePercentage = (
   defaultValue?: any
 ) => {
   switch (true) {
-    case percentage > 0:
+    case Number(percentage) > 0:
       return return1;
-    case percentage < 0:
+    case Number(percentage) < 0:
       return return2;
     default:
       return defaultValue || null;
