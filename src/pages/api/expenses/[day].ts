@@ -24,8 +24,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         .sort({ hour: 1 })
         .populate("type");
 
-      console.log({ expensesData: getExpenseData(expenses) });
-
       const todayExpensesAmount = getAmount(expenses);
       // @ts-ignore
       const previousDay = getPreviousDay(day);

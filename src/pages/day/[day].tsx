@@ -53,8 +53,6 @@ const DayDetailPage = (): JSX.Element => {
     redraw: true,
   };
 
-  console.log({ graphicData });
-
   return (
     <div className={styles.pageContainer}>
       <div className={styles.topContainer}>
