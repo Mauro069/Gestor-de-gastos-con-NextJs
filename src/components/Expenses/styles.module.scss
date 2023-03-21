@@ -16,24 +16,26 @@
     border: 1px solid #ffffff10;
     display: flex;
     flex-direction: column;
+    border-radius: 10px 10px 0px 0px;
 
     .titlesContainer {
       display: flex;
       background-color: #ffffff10;
-      border: 1px solid white;
+      border-radius: 10px 10px 0px 0px;
 
       .title {
         min-width: 200px;
         display: flex;
         align-items: center;
-        border-left: 1px solid white;
-        border-right: 1px solid white;
+        border: 1px solid white;
+        border-top: none;
         height: 50px;
         padding-left: 16px;
       }
 
       .title:nth-child(1) {
         width: 15%;
+        border-left: none;
       }
 
       .title:nth-child(2) {
@@ -50,6 +52,7 @@
 
       .title:nth-child(5) {
         width: 25%;
+        border-right: none;
       }
     }
 
@@ -61,7 +64,6 @@
       flex-direction: column;
       width: 100%;
       overflow-y: scroll;
-      overflow-x: scroll;
 
       .notFound {
         display: flex;
@@ -100,20 +102,27 @@
   font-weight: bold;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1165px) {
+  .scrollBtn {
+    display: none !important;
+  }
+
+
+
   .expensesContainer {
     .titlesAndExpensesContainer {
       .titlesContainer {
+        border-radius: 0;
         overflow-x: scroll;
         border-bottom: none;
         border: none;
         border-top: 1px solid white;
+
+        .title {
+          border-bottom: none;
+        }
       }
     }
-  }
-
-  .title {
-    border-bottom: none;
   }
 
   .titlesContainer::-webkit-scrollbar,

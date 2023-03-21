@@ -1,11 +1,17 @@
-import useExpenseTypesQuery from "@/hooks/useExpenseTypeById";
-import { IExpense } from "@/models";
-import { useEffect, useRef, useState } from "react";
 import { ExpenseItem } from "./components/ExpenseItem";
+import { useEffect, useRef, useState } from "react";
+import { IExpense } from "@/models";
 
 import styles from "./styles.module.scss";
+import { Loader } from "../Loader";
 
-export const Expenses = ({ expenses }: { expenses: IExpense[] }) => {
+export const Expenses = ({
+  expenses,
+  isLoading,
+}: {
+  expenses: IExpense[];
+  isLoading: boolean;
+}) => {
   const titles = [
     "Hora",
     "Importe",
@@ -61,11 +67,16 @@ export const Expenses = ({ expenses }: { expenses: IExpense[] }) => {
           ))}
         </div>
         <div className={styles.expensesList} ref={containerRef}>
-          {expenses?.length > 0 ? (
+          {expenses?.length > 0 &&
             expenses?.map((expense: IExpense) => (
               <ExpenseItem key={expense._id} expense={expense} />
-            ))
-          ) : (
+            ))}
+          {isLoading && (
+            <div className={styles.notFound}>
+              <Loader />
+            </div>
+          )}
+          {!isLoading && expenses?.length === 0 && (
             <div className={styles.notFound}>
               Aún no has cargado ningun gasto...
             </div>

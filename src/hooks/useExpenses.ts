@@ -21,7 +21,12 @@ type ApiError = {
 
 export const useExpenses = (day: any) => {
   const { data, isLoading, error, refetch } = useQuery<
-    { expenses: Expense[]; todayExpensesAmount: number; percentage: number },
+    {
+      expenses: Expense[];
+      todayExpensesAmount: number;
+      percentage: number;
+      graphicData: any;
+    },
     AxiosError<ApiError>
   >(["expenses", day], async () => {
     const { data } = await axios.get(`/api/expenses/${day}`);
@@ -48,6 +53,7 @@ export const useExpenses = (day: any) => {
     todayExpensesAmount: data?.todayExpensesAmount,
     expenses: data?.expenses,
     percentage: data?.percentage,
+    graphicData: data?.graphicData,
     createExpense,
     isLoading,
     error,

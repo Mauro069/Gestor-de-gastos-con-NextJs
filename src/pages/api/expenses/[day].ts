@@ -6,6 +6,7 @@ import { getPercentage } from "@/utils/getPercentage";
 import { withAuth } from "@/lib/withAuth";
 import { verify } from "jsonwebtoken";
 import db from "@/utils/db";
+import { getExpenseData } from "@/utils/getExpensesData";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
@@ -19,7 +20,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         date: day,
         // @ts-ignore
         userRef: cookie?.data?._id,
-      }).sort({ hour: 1 });
+      })
+        .sort({ hour: 1 })
+        .populate("type");
+
+      console.log({ expensesData: getExpenseData(expenses) });
 
       const todayExpensesAmount = getAmount(expenses);
       // @ts-ignore
@@ -40,6 +45,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         expenses,
         todayExpensesAmount,
         percentage,
+        graphicData: getExpenseData(expenses),
       });
     } catch (error) {
       res.json({ msj: "Ocurrio un error", error });
