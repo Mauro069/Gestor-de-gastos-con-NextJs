@@ -11,8 +11,13 @@ import styles from "../../styles/dayDetailPage.module.scss";
 
 const DayDetailPage = (): JSX.Element => {
   const { query } = useRouter();
-  const { expenses, todayExpensesAmount, percentage, createExpense } =
-    useExpenses(transformDateToISO(query?.day, "start"));
+  const {
+    expenses,
+    todayExpensesAmount,
+    percentage,
+    createExpense,
+    isLoading,
+  } = useExpenses(transformDateToISO(query?.day, "start"));
 
   return (
     <div className={styles.pageContainer}>
@@ -52,7 +57,7 @@ const DayDetailPage = (): JSX.Element => {
       </div>
 
       {/* @ts-ignore */}
-      <Expenses expenses={expenses} />
+      <Expenses expenses={expenses} isLoading={isLoading} />
     </div>
   );
 };

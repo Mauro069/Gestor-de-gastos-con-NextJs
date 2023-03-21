@@ -20,14 +20,12 @@
     .titlesContainer {
       display: flex;
       background-color: #ffffff10;
-      border: 1px solid white;
 
       .title {
         min-width: 200px;
         display: flex;
         align-items: center;
-        border-left: 1px solid white;
-        border-right: 1px solid white;
+        border: 1px solid white;
         height: 50px;
         padding-left: 16px;
       }
@@ -54,6 +52,7 @@
     }
 
     .expensesList {
+      border-radius: 10px;
       position: relative;
       height: 400px;
       background-color: #2a2f39;
@@ -61,7 +60,6 @@
       flex-direction: column;
       width: 100%;
       overflow-y: scroll;
-      overflow-x: scroll;
 
       .notFound {
         display: flex;
@@ -100,7 +98,13 @@
   font-weight: bold;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1165px) {
+  .scrollBtn {
+    display: none !important;
+  }
+
+
+
   .expensesContainer {
     .titlesAndExpensesContainer {
       .titlesContainer {
@@ -108,12 +112,12 @@
         border-bottom: none;
         border: none;
         border-top: 1px solid white;
+
+        .title {
+          border-bottom: none;
+        }
       }
     }
-  }
-
-  .title {
-    border-bottom: none;
   }
 
   .titlesContainer::-webkit-scrollbar,
