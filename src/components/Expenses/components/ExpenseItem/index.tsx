@@ -21,7 +21,7 @@ export const ExpenseItem = ({ expense }: { expense: IExpense }) => {
           {type?.name}
         </span>
       </div>
-      <div className={styles.item}>Proximamente...</div>
+      <div className={styles.item}>-</div>
       <div className={styles.item}>{expense.description}</div>
     </div>
   );
