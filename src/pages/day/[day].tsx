@@ -1,16 +1,15 @@
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { validatePercentage } from "@/utils/validatePercentage";
 import { transformDateToISO } from "@/utils/transformDateToISO";
 import { CreateExpense } from "@/components/Forms";
 import { withPoints } from "@/utils/withPoints";
+import { Doughnut } from "react-chartjs-2";
 import { Expenses } from "@/components";
 import { useRouter } from "next/router";
 import { useExpenses } from "@/hooks";
 import Link from "next/link";
 
 import styles from "../../styles/dayDetailPage.module.scss";
-
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -91,7 +90,7 @@ const DayDetailPage = (): JSX.Element => {
           </div>
         </div>
         <div className={styles.flex}>
-          <Pie data={data} />
+          <Doughnut data={data} />
           <CreateExpense createExpense={createExpense} />
         </div>
       </div>
