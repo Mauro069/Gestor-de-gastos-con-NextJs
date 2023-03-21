@@ -9,6 +9,11 @@ import Link from "next/link";
 
 import styles from "../../styles/dayDetailPage.module.scss";
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 const DayDetailPage = (): JSX.Element => {
   const { query } = useRouter();
   const {
@@ -17,7 +22,39 @@ const DayDetailPage = (): JSX.Element => {
     percentage,
     createExpense,
     isLoading,
+    graphicData,
   } = useExpenses(transformDateToISO(query?.day, "start"));
+
+  interface GraphicDataItem {
+    name: string;
+    color: string;
+    percentage: number;
+    totalAmount: number;
+  }
+
+  const data = {
+    labels: graphicData?.map(
+      (expenseType: GraphicDataItem) => expenseType.name
+    ),
+    datasets: [
+      {
+        label: "Dinero gastado",
+        data: graphicData?.map(
+          (expenseType: GraphicDataItem) => expenseType.totalAmount
+        ),
+        backgroundColor: graphicData?.map(
+          (expenseType: GraphicDataItem) => `${expenseType.color}50`
+        ),
+        borderColor: graphicData?.map(
+          (expenseType: GraphicDataItem) => expenseType.color
+        ),
+        borderWidth: 1,
+      },
+    ],
+    redraw: true,
+  };
+
+  console.log({ graphicData });
 
   return (
     <div className={styles.pageContainer}>
@@ -53,7 +90,10 @@ const DayDetailPage = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <CreateExpense createExpense={createExpense} />
+        <div className={styles.flex}>
+          <Pie data={data} />
+          <CreateExpense createExpense={createExpense} />
+        </div>
       </div>
 
       {/* @ts-ignore */}
