@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@font-face {
+  font-family: "Rubik";
+  src: url("../../public/fonts/Rubik-VariableFont_wght.ttf");
+}
 
 * {
   user-select: none;
@@ -6,5 +9,5 @@
   padding: 0;
   box-sizing: border-box;
   outline: none;
-  font-family: 'Inter', sans-serif;
+  font-family: "Rubik", sans-serif;
 }
