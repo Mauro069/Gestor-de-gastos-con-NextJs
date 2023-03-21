@@ -16,22 +16,26 @@
     border: 1px solid #ffffff10;
     display: flex;
     flex-direction: column;
+    border-radius: 10px 10px 0px 0px;
 
     .titlesContainer {
       display: flex;
       background-color: #ffffff10;
+      border-radius: 10px 10px 0px 0px;
 
       .title {
         min-width: 200px;
         display: flex;
         align-items: center;
         border: 1px solid white;
+        border-top: none;
         height: 50px;
         padding-left: 16px;
       }
 
       .title:nth-child(1) {
         width: 15%;
+        border-left: none;
       }
 
       .title:nth-child(2) {
@@ -48,11 +52,11 @@
 
       .title:nth-child(5) {
         width: 25%;
+        border-right: none;
       }
     }
 
     .expensesList {
-      border-radius: 10px;
       position: relative;
       height: 400px;
       background-color: #2a2f39;
@@ -108,6 +112,7 @@
   .expensesContainer {
     .titlesAndExpensesContainer {
       .titlesContainer {
+        border-radius: 0;
         overflow-x: scroll;
         border-bottom: none;
         border: none;
