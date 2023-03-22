@@ -121,7 +121,7 @@ const DayDetailPage = (): JSX.Element => {
           </div>
         </div>
         <div className={styles.flex}>
-          {graphicData.length > 0 && <Doughnut data={data} />}
+          {graphicData?.length > 0 && <Doughnut data={data} />}
           <CreateExpense
             createExpense={createExpense}
             isLoading={isLoadingCreateExpense}
