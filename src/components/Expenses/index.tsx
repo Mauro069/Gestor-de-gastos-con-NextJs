@@ -8,9 +8,11 @@ import { Loader } from "../Loader";
 export const Expenses = ({
   expenses,
   isLoading,
+  deleteExpense,
 }: {
   expenses: IExpense[];
   isLoading: boolean;
+  deleteExpense: any;
 }) => {
   const titles = [
     "Hora",
@@ -33,8 +35,6 @@ export const Expenses = ({
       const containerScrollHeight = container?.scrollHeight;
       /* @ts-ignore */
       const containerScrollTop = container?.scrollTop;
-
-      console.log(containerHeight, containerScrollTop, containerScrollHeight);
 
       if (containerHeight + containerScrollTop === containerScrollHeight) {
         setShowScrollBtn(false);
@@ -64,7 +64,11 @@ export const Expenses = ({
       <div className={styles.expensesList} ref={containerRef}>
         {expenses?.length > 0 &&
           expenses?.map((expense: IExpense) => (
-            <ExpenseItem key={expense._id} expense={expense} />
+            <ExpenseItem
+              deleteExpense={deleteExpense}
+              key={expense._id}
+              expense={expense}
+            />
           ))}
         {isLoading && (
           <div className={styles.notFound}>

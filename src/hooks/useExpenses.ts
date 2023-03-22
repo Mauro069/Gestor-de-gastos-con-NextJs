@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import axios, { AxiosError } from "axios";
 import { ObjectId } from "mongoose";
-import { IExpense, IExpenseType, IReport } from "@/models";
+import { IExpense, IExpenseType } from "@/models";
 
 type Expense = {
   _id?: string;
@@ -9,7 +9,6 @@ type Expense = {
   amount: number;
   description: string;
   type: ObjectId | IExpenseType;
-  reportRef: ObjectId | IReport;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -49,12 +48,28 @@ export const useExpenses = (day: any) => {
     }
   );
 
+  const { mutate: deleteExpense } = useMutation<
+    void,
+    AxiosError<ApiError>,
+    string
+  >(
+    async (expenseId: string) => {
+      await axios.delete(`/api/expenses`, { data: { expenseId } });
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+
   return {
     todayExpensesAmount: data?.todayExpensesAmount,
     expenses: data?.expenses,
     percentage: data?.percentage,
     graphicData: data?.graphicData,
     createExpense,
+    deleteExpense,
     isLoading,
     error,
     refetch,

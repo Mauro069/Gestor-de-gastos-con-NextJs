@@ -22,6 +22,7 @@ const DayDetailPage = (): JSX.Element => {
     createExpense,
     isLoading,
     graphicData,
+    deleteExpense,
   } = useExpenses(transformDateToISO(query?.day, "start"));
 
   interface GraphicDataItem {
@@ -64,8 +65,11 @@ const DayDetailPage = (): JSX.Element => {
           <span className={styles.welcome}>{query?.nameDay}</span>
           <div className={styles.expensesAmountContainer}>
             <span className={styles.subtitle}>
-              Hoy gastaste {validatePercentage(percentage!, "mas", "menos")} que
-              ayer
+              {validatePercentage(
+                percentage!,
+                "Hoy gastaste más que la semana anterior",
+                "Hoy gastaste menos que la semana anterior"
+              )}
             </span>
             <div className={styles.expensesAmount}>
               <h1>${withPoints(todayExpensesAmount!)}</h1>{" "}
@@ -93,8 +97,12 @@ const DayDetailPage = (): JSX.Element => {
         </div>
       </div>
 
-      {/* @ts-ignore */}
-      <Expenses expenses={expenses} isLoading={isLoading} />
+      <Expenses
+        deleteExpense={deleteExpense}
+        // @ts-ignore
+        expenses={expenses}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
