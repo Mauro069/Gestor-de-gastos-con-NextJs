@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import styles from "./styles.module.scss";
 
-export const Options = () => {
+export const Options = ({ deleteExpense }: { deleteExpense: any }) => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ export const Options = () => {
       {modal && (
         <div onMouseLeave={() => setModal(false)} className={styles.modal}>
           <Svg1 />
-          <Svg2 />
+          <Svg2 onClick={deleteExpense} />
         </div>
       )}
     </div>

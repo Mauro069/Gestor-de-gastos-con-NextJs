@@ -4,7 +4,17 @@ import { Options } from "../Options";
 
 import styles from "./styles.module.scss";
 
-export const ExpenseItem = ({ expense }: { expense: IExpense }) => {
+export const ExpenseItem = ({
+  expense,
+  deleteExpense,
+}: {
+  expense: IExpense;
+  deleteExpense: any;
+}) => {
+  const onDelete = async () => {
+    await deleteExpense(expense._id);
+  };
+  
   return (
     <>
       <div className={styles.expenseContainer}>
@@ -28,7 +38,7 @@ export const ExpenseItem = ({ expense }: { expense: IExpense }) => {
           <div className={styles.item}>-</div>
           <div className={styles.item}>{expense?.description}</div>
         </div>
-        <Options />
+        <Options deleteExpense={onDelete} />
       </div>
     </>
   );

@@ -8,11 +8,11 @@ import { isValidObjectId } from "mongoose";
 import ExpenseType from "@/models/ExpenseType";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { gdi_cookie } = req.cookies;
+  const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
+
   if (req.method === "POST") {
     try {
-      const { gdi_cookie } = req.cookies;
-      const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
-
       const { description, hour, type, date, amount } = req.body;
 
       await db.connect();
@@ -38,6 +38,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     } catch (error) {
       res.json({ msj: "Ocurrio un error", error });
     }
+  } else if (req.method === "DELETE") {
+    const { expenseId } = req.body;
+
+    await db.connect();
+    const expenseDeleted = await Expense.findByIdAndDelete(expenseId);
+    console.log({ expenseDeleted });
+
+    await db.disconnect();
+    res.json({ msj: "Gasto eliminado correctamente", expenseDeleted });
   }
 }
 
