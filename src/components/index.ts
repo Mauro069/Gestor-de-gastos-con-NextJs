@@ -7,5 +7,3 @@ export * from './Input';
 export * from './Loader';
 export * from './Notification';
 export * from './Pagination';
-export * from './ReportItem';
-export * from './ReportsList';
