@@ -4,6 +4,7 @@
         "/src/components/Forms",
         "/src/hooks",
         "/src/components/ReportItem/components",
-        "/src/hoc"
+        "/src/hoc",
+        "/src/components/Expenses/components"
     ]
 }
