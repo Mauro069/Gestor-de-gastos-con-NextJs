@@ -1,5 +1,5 @@
-import { ExpenseItem } from "./components/ExpenseItem";
 import { useEffect, useRef, useState } from "react";
+import { ExpenseItem, Titles } from "./components";
 import { IExpense } from "@/models";
 
 import styles from "./styles.module.scss";
@@ -34,6 +34,8 @@ export const Expenses = ({
       /* @ts-ignore */
       const containerScrollTop = container?.scrollTop;
 
+      console.log(containerHeight, containerScrollTop, containerScrollHeight);
+
       if (containerHeight + containerScrollTop === containerScrollHeight) {
         setShowScrollBtn(false);
       } else {
@@ -57,40 +59,32 @@ export const Expenses = ({
 
   return (
     <div className={styles.expensesContainer}>
-      <span className={styles.subtitle}>Tus movimientos del dia</span>
-      <div className={styles.titlesAndExpensesContainer}>
-        <div className={styles.titlesContainer}>
-          {titles.map((title: string) => (
-            <div className={styles.title} key={title}>
-              {title}
-            </div>
+      <span className={styles.subtitle}>Movimientos del dia</span>
+      <Titles titles={titles} />
+      <div className={styles.expensesList} ref={containerRef}>
+        {expenses?.length > 0 &&
+          expenses?.map((expense: IExpense) => (
+            <ExpenseItem key={expense._id} expense={expense} />
           ))}
-        </div>
-        <div className={styles.expensesList} ref={containerRef}>
-          {expenses?.length > 0 &&
-            expenses?.map((expense: IExpense) => (
-              <ExpenseItem key={expense._id} expense={expense} />
-            ))}
-          {isLoading && (
-            <div className={styles.notFound}>
-              <Loader />
-            </div>
-          )}
-          {!isLoading && expenses?.length === 0 && (
-            <div className={styles.notFound}>
-              Aún no has cargado ningun gasto...
-            </div>
-          )}
-          {expenses?.length > 8 && (
-            <button
-              className={styles.scrollBtn}
-              style={{ display: showScrollBtn ? "block" : "none" }}
-              onClick={handleScrollToTop}
-            >
-              Ver mas
-            </button>
-          )}
-        </div>
+        {isLoading && (
+          <div className={styles.notFound}>
+            <Loader />
+          </div>
+        )}
+        {!isLoading && expenses?.length === 0 && (
+          <div className={styles.notFound}>
+            Aún no has cargado ningun gasto...
+          </div>
+        )}
+        {expenses?.length > 6 && (
+          <button
+            className={styles.scrollBtn}
+            style={{ display: showScrollBtn ? "block" : "none" }}
+            onClick={handleScrollToTop}
+          >
+            Ver mas
+          </button>
+        )}
       </div>
     </div>
   );
