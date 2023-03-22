@@ -19,7 +19,12 @@ type ApiError = {
 };
 
 export const useExpenses = (day: any) => {
-  const { data, isLoading, error, refetch } = useQuery<
+  const {
+    data,
+    isLoading: isLoadingExpenses,
+    error,
+    refetch,
+  } = useQuery<
     {
       expenses: Expense[];
       todayExpensesAmount: number;
@@ -32,29 +37,29 @@ export const useExpenses = (day: any) => {
     return data;
   });
 
-  const { mutate: createExpense } = useMutation<
-    IExpense,
-    AxiosError<ApiError>,
-    IExpense
-  >(
-    async (newExpense: IExpense) => {
-      const response = await axios.post("/api/expenses", newExpense);
-      return response.data;
-    },
-    {
-      onSuccess: () => {
-        refetch();
+  const { mutate: createExpense, isLoading: isLoadingCreateExpense } =
+    useMutation<IExpense, AxiosError<ApiError>, IExpense>(
+      async (newExpense: IExpense) => {
+        const response = await axios.post("/api/expenses", newExpense);
+        return response.data;
       },
-    }
-  );
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
 
-  const { mutate: deleteExpense } = useMutation<
-    void,
-    AxiosError<ApiError>,
-    string
-  >(
+  const {
+    mutate: deleteExpense,
+    isLoading: isLoadingDeleteExpense,
+    data: deleteData,
+  } = useMutation<void, AxiosError<ApiError>, string>(
     async (expenseId: string) => {
-      await axios.delete(`/api/expenses`, { data: { expenseId } });
+      const { data } = await axios.delete(`/api/expenses`, {
+        data: { expenseId },
+      });
+      return data;
     },
     {
       onSuccess: () => {
@@ -68,9 +73,12 @@ export const useExpenses = (day: any) => {
     expenses: data?.expenses,
     percentage: data?.percentage,
     graphicData: data?.graphicData,
+    deleteData,
     createExpense,
     deleteExpense,
-    isLoading,
+    isLoadingExpenses,
+    isLoadingCreateExpense,
+    isLoadingDeleteExpense,
     error,
     refetch,
   };

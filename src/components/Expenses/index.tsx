@@ -9,10 +9,12 @@ export const Expenses = ({
   expenses,
   isLoading,
   deleteExpense,
+  isLoadingDeleteExpense,
 }: {
   expenses: IExpense[];
   isLoading: boolean;
   deleteExpense: any;
+  isLoadingDeleteExpense: boolean;
 }) => {
   const titles = [
     "Hora",
@@ -65,6 +67,7 @@ export const Expenses = ({
         {expenses?.length > 0 &&
           expenses?.map((expense: IExpense) => (
             <ExpenseItem
+              isLoadingDeleteExpense={isLoadingDeleteExpense}
               deleteExpense={deleteExpense}
               key={expense._id}
               expense={expense}

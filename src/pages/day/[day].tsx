@@ -10,6 +10,8 @@ import { useExpenses } from "@/hooks";
 import Link from "next/link";
 
 import styles from "../../styles/dayDetailPage.module.scss";
+import { useContext, useEffect } from "react";
+import NotificationContext from "@/context/notificationContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -20,9 +22,23 @@ const DayDetailPage = (): JSX.Element => {
     todayExpensesAmount,
     percentage,
     createExpense,
-    isLoading,
+    isLoadingExpenses,
+    isLoadingCreateExpense,
+    isLoadingDeleteExpense,
     graphicData,
     deleteExpense,
+    deleteData,
+  }: {
+    expenses: any;
+    todayExpensesAmount: any;
+    percentage: any;
+    createExpense: any;
+    isLoadingExpenses: any;
+    isLoadingCreateExpense: any;
+    isLoadingDeleteExpense: any;
+    graphicData: any;
+    deleteExpense: any;
+    deleteData: any;
   } = useExpenses(transformDateToISO(query?.day, "start"));
 
   interface GraphicDataItem {
@@ -31,6 +47,19 @@ const DayDetailPage = (): JSX.Element => {
     percentage: number;
     totalAmount: number;
   }
+
+  const { showNotification } = useContext(NotificationContext);
+
+  useEffect(() => {
+    if (deleteData?.msj) {
+      showNotification!({
+        open: true,
+        msj: deleteData.msj,
+        status: deleteData.expenseDeleted ? "success" : "error",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleteData]);
 
   const data = {
     labels: graphicData?.map(
@@ -92,16 +121,20 @@ const DayDetailPage = (): JSX.Element => {
           </div>
         </div>
         <div className={styles.flex}>
-          <Doughnut data={data} />
-          <CreateExpense createExpense={createExpense} />
+          {graphicData.length > 0 && <Doughnut data={data} />}
+          <CreateExpense
+            createExpense={createExpense}
+            isLoading={isLoadingCreateExpense}
+          />
         </div>
       </div>
 
       <Expenses
+        isLoadingDeleteExpense={isLoadingDeleteExpense}
         deleteExpense={deleteExpense}
         // @ts-ignore
         expenses={expenses}
-        isLoading={isLoading}
+        isLoading={isLoadingExpenses}
       />
     </div>
   );
