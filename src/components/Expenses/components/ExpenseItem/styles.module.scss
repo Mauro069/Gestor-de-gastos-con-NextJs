@@ -56,22 +56,6 @@
   border-bottom: none;
 }
 
-.options {
-  height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  background-color: #39383e;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.options:hover {
-  transition: 0.3s;
-  filter: brightness(1.1);
-}
-
 .line {
   height: 2px;
   margin: 0 1.5rem;
@@ -81,7 +65,7 @@
 @media (max-width: 1165px) {
   .expenseContainer {
     border-bottom: none;
-    
+
     .expense {
       width: inherit;
     }

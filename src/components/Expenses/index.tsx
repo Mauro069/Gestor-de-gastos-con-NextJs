@@ -34,8 +34,6 @@ export const Expenses = ({
       /* @ts-ignore */
       const containerScrollTop = container?.scrollTop;
 
-      console.log(containerHeight, containerScrollTop, containerScrollHeight);
-
       if (containerHeight + containerScrollTop === containerScrollHeight) {
         setShowScrollBtn(false);
       } else {
