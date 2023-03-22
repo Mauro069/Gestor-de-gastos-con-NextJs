@@ -80,6 +80,8 @@
 
 @media (max-width: 1165px) {
   .expenseContainer {
+    border-bottom: none;
+    
     .expense {
       width: inherit;
     }
