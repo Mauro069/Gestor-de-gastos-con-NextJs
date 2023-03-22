@@ -1,35 +1,12 @@
-@import "../../styles/animations.scss";
-
 .notification {
   position: fixed;
   bottom: 0;
   right: 0;
-  margin-right: 1rem;
   margin-bottom: 1rem;
   z-index: 5;
-  min-width: 200px;
   display: flex;
   align-items: center;
-  animation: fade-in 0.4s ease-in-out forwards;
-
-  .error {
-    height: 50px;
-    width: 50px;
-    background-color: #ee3335;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px 0 0 8px;
-
-    svg {
-      height: 30px;
-    }
-  }
-
-  .success {
-    @extend .error;
-    background-color: #017042;
-  }
+  animation: start 0.5s forwards;
 
   .textGreen {
     height: 50px;
@@ -42,12 +19,12 @@
     padding: 1rem;
     flex-direction: column;
     gap: 10px;
-    border-radius: 0 8px 8px 0;
+    border-radius: 10px 0 0 10px;
     border: 1px solid rgb(199, 199, 199);
-    border-right: 3px solid #017042;
+    border-bottom: 3px solid #01bb1f;
 
     p {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 16px;
     }
 
@@ -59,6 +36,15 @@
 
   .textRed {
     @extend .textGreen;
-    border-right: 3px solid #ee3335;
+    border-right: 3px solid #ff0000;
+  }
+}
+
+@keyframes start {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0%;
   }
 }

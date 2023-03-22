@@ -50,23 +50,30 @@ export const useExpenses = (day: any) => {
       }
     );
 
-  const { mutate: deleteExpense, isLoading: isLoadingDeleteExpense } =
-    useMutation<void, AxiosError<ApiError>, string>(
-      async (expenseId: string) => {
-        await axios.delete(`/api/expenses`, { data: { expenseId } });
+  const {
+    mutate: deleteExpense,
+    isLoading: isLoadingDeleteExpense,
+    data: deleteData,
+  } = useMutation<void, AxiosError<ApiError>, string>(
+    async (expenseId: string) => {
+      const { data } = await axios.delete(`/api/expenses`, {
+        data: { expenseId },
+      });
+      return data;
+    },
+    {
+      onSuccess: () => {
+        refetch();
       },
-      {
-        onSuccess: () => {
-          refetch();
-        },
-      }
-    );
+    }
+  );
 
   return {
     todayExpensesAmount: data?.todayExpensesAmount,
     expenses: data?.expenses,
     percentage: data?.percentage,
     graphicData: data?.graphicData,
+    deleteData,
     createExpense,
     deleteExpense,
     isLoadingExpenses,
