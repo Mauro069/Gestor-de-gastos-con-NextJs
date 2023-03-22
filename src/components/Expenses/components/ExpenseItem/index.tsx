@@ -7,14 +7,16 @@ import styles from "./styles.module.scss";
 export const ExpenseItem = ({
   expense,
   deleteExpense,
+  isLoadingDeleteExpense,
 }: {
   expense: IExpense;
   deleteExpense: any;
+  isLoadingDeleteExpense: boolean;
 }) => {
   const onDelete = async () => {
     await deleteExpense(expense._id);
   };
-  
+
   return (
     <>
       <div className={styles.expenseContainer}>
@@ -38,7 +40,10 @@ export const ExpenseItem = ({
           <div className={styles.item}>-</div>
           <div className={styles.item}>{expense?.description}</div>
         </div>
-        <Options deleteExpense={onDelete} />
+        <Options
+          isLoadingDeleteExpense={isLoadingDeleteExpense}
+          deleteExpense={onDelete}
+        />
       </div>
     </>
   );

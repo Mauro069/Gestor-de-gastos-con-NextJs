@@ -20,10 +20,14 @@ const DayDetailPage = (): JSX.Element => {
     todayExpensesAmount,
     percentage,
     createExpense,
-    isLoading,
+    isLoadingExpenses,
+    isLoadingCreateExpense,
+    isLoadingDeleteExpense,
     graphicData,
     deleteExpense,
   } = useExpenses(transformDateToISO(query?.day, "start"));
+
+  console.log({ isLoadingCreateExpense });
 
   interface GraphicDataItem {
     name: string;
@@ -92,16 +96,20 @@ const DayDetailPage = (): JSX.Element => {
           </div>
         </div>
         <div className={styles.flex}>
-          <Doughnut data={data} />
-          <CreateExpense createExpense={createExpense} />
+          {graphicData && <Doughnut data={data} />}
+          <CreateExpense
+            createExpense={createExpense}
+            isLoading={isLoadingCreateExpense}
+          />
         </div>
       </div>
 
       <Expenses
+        isLoadingDeleteExpense={isLoadingDeleteExpense}
         deleteExpense={deleteExpense}
         // @ts-ignore
         expenses={expenses}
-        isLoading={isLoading}
+        isLoading={isLoadingExpenses}
       />
     </div>
   );

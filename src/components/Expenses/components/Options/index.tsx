@@ -1,8 +1,15 @@
+import { Loader } from "@/components/Loader";
 import { useState } from "react";
 
 import styles from "./styles.module.scss";
 
-export const Options = ({ deleteExpense }: { deleteExpense: any }) => {
+export const Options = ({
+  deleteExpense,
+  isLoadingDeleteExpense,
+}: {
+  deleteExpense: any;
+  isLoadingDeleteExpense: boolean;
+}) => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -10,8 +17,16 @@ export const Options = ({ deleteExpense }: { deleteExpense: any }) => {
       {!modal && <ThreePoints />}
       {modal && (
         <div onMouseLeave={() => setModal(false)} className={styles.modal}>
-          <Svg1 />
-          <Svg2 onClick={deleteExpense} />
+          {!isLoadingDeleteExpense ? (
+            <>
+              <Svg1 />
+              <Svg2 onClick={deleteExpense} />
+            </>
+          ) : (
+            <>
+              <Loader size={20} />
+            </>
+          )}
         </div>
       )}
     </div>

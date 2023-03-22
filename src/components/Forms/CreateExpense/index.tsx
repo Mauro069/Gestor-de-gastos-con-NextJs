@@ -8,10 +8,9 @@ import { useContext, useState } from "react";
 
 import styles from "./styles.module.scss";
 
-export const CreateExpense = ({ createExpense }: any) => {
+export const CreateExpense = ({ createExpense, isLoading }: any) => {
   const { query } = useRouter();
   const [type, setType] = useState(null);
-  const [loading, setLoading] = useState(false);
   const { showNotification } = useContext(NotificationContext);
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
@@ -20,8 +19,6 @@ export const CreateExpense = ({ createExpense }: any) => {
       description: "",
     },
     onSubmit: async (values) => {
-      setLoading(true);
-
       if (values.time && values.amount && type) {
         const { amount, description, time } = values;
 
@@ -33,7 +30,7 @@ export const CreateExpense = ({ createExpense }: any) => {
           type,
         });
 
-        setType(null)
+        setType(null);
 
         // @ts-ignore
         showNotification({
@@ -49,8 +46,6 @@ export const CreateExpense = ({ createExpense }: any) => {
           status: "error",
         });
       }
-
-      setLoading(false);
     },
   });
   const { data } = useExpenseTypesQuery("all");
@@ -116,7 +111,7 @@ export const CreateExpense = ({ createExpense }: any) => {
       </div>
 
       <Button
-        isLoading={loading}
+        isLoading={isLoading}
         textColor="#17161E"
         backgroundColor="#fffff"
         buttonText="Agregar gasto"
