@@ -17,10 +17,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       await db.connect();
       if (isValidObjectId(type._id)) {
-        const existType = await ExpenseType.findById(type);
+        const existType: any = await ExpenseType.findById(type);
 
         if (existType) {
-          const newExpense = new Expense({
+          const newExpense: any = new Expense({
             // @ts-ignore
             userRef: cookie?.data?._id,
             description: description,
@@ -43,10 +43,45 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     await db.connect();
     const expenseDeleted = await Expense.findByIdAndDelete(expenseId);
-    console.log({ expenseDeleted });
 
     await db.disconnect();
     res.json({ msj: "Gasto eliminado correctamente", expenseDeleted });
+  } else if ("PUT") {
+    try {
+      const { expenseId, description, hour, type, amount } = req.body.data;
+
+      console.log("BODY =>", req.body )
+      console.log({ expenseId, description, hour, type, amount });
+      await db.connect();
+      if (isValidObjectId(expenseId)) {
+        const existExpense = await Expense.findById(expenseId);
+
+        if (existExpense) {
+          // @ts-ignore
+          if (existExpense.userRef.toString() !== cookie?.data?._id) {
+            return res.status(401).json({ message: "Unauthorized" });
+          }
+
+          const updatedExpense = await Expense.findByIdAndUpdate(
+            expenseId,
+            {
+              description,
+              hour,
+              type,
+              amount,
+            },
+            { new: true }
+          );
+
+          await db.disconnect();
+          res.json({ msj: "Gasto actualizado correctamente", updatedExpense });
+        }
+      }
+    } catch (error) {
+      res.json({ msj: "Ocurrio un error", error });
+    }
+  } else {
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }
 

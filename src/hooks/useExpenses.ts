@@ -68,11 +68,32 @@ export const useExpenses = (day: any) => {
     }
   );
 
+  const {
+    mutate: updateExpense,
+    isLoading: isLoadingUpdateExpense,
+    data: updateData,
+  } = useMutation<void, AxiosError<ApiError>, string>(
+    async ({ expenseId, description, hour, type, amount }: any) => {
+      const { data } = await axios.put(`/api/expenses`, {
+        data: { expenseId, description, hour, type, amount },
+      });
+      return data;
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+
   return {
     todayExpensesAmount: data?.todayExpensesAmount,
     expenses: data?.expenses,
     percentage: data?.percentage,
     graphicData: data?.graphicData,
+    updateExpense,
+    isLoadingUpdateExpense,
+    updateData,
     deleteData,
     createExpense,
     deleteExpense,

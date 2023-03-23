@@ -10,11 +10,15 @@ export const Expenses = ({
   isLoading,
   deleteExpense,
   isLoadingDeleteExpense,
+  isLoadingEditExpense,
+  editExpense,
 }: {
   expenses: IExpense[];
   isLoading: boolean;
   deleteExpense: any;
   isLoadingDeleteExpense: boolean;
+  isLoadingEditExpense: boolean;
+  editExpense: any;
 }) => {
   const titles = [
     "Hora",
@@ -67,6 +71,8 @@ export const Expenses = ({
         {expenses?.length > 0 &&
           expenses?.map((expense: IExpense) => (
             <ExpenseItem
+              isLoadingEditExpense={isLoadingEditExpense}
+              editExpense={editExpense}
               isLoadingDeleteExpense={isLoadingDeleteExpense}
               deleteExpense={deleteExpense}
               key={expense._id}

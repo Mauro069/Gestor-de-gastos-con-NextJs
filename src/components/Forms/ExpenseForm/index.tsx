@@ -1,51 +1,27 @@
-import NotificationContext from "@/context/notificationContext";
 import useExpenseTypesQuery from "@/hooks/useExpenseTypeById";
 import { Dropdown } from "@/components/Dropdown";
 import { Button } from "@/components/Button";
-import { useRouter } from "next/router";
 import { useForm } from "@/hooks";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import styles from "./styles.module.scss";
 
-export const CreateExpense = ({ createExpense, isLoading }: any) => {
-  const { query } = useRouter();
-  const [type, setType] = useState(null);
-  const { showNotification } = useContext(NotificationContext);
+export const ExpenseForm = ({
+  expense,
+  onSubmit,
+  isLoading,
+  textSubmitButton,
+  onCancel,
+}: any) => {
+  const [type, setType] = useState(expense?.type || null);
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
-      time: "",
-      amount: "",
-      description: "",
+      time: expense?.hour || "",
+      amount: expense?.amount || "",
+      description: expense?.description || "",
     },
     onSubmit: async (values) => {
-      if (values.time && values.amount && type) {
-        const { amount, description, time } = values;
-
-        createExpense({
-          date: query?.day,
-          hour: time,
-          description,
-          amount,
-          type,
-        });
-
-        setType(null);
-
-        // @ts-ignore
-        showNotification({
-          msj: "Gasto agregado correctamente",
-          open: true,
-          status: "success",
-        });
-      } else {
-        // @ts-ignore
-        showNotification({
-          msj: "Te falto enviar algun campo obligatorio!",
-          open: true,
-          status: "error",
-        });
-      }
+      onSubmit(values, { type, setType });
     },
   });
   const { data } = useExpenseTypesQuery("all");
@@ -55,7 +31,7 @@ export const CreateExpense = ({ createExpense, isLoading }: any) => {
       <div className={styles.row}>
         <div className={styles.inputContainer}>
           <label className={styles.label} htmlFor="time">
-            Hora *
+            Hora
           </label>
           <input
             onChange={handleChange}
@@ -110,12 +86,23 @@ export const CreateExpense = ({ createExpense, isLoading }: any) => {
         />
       </div>
 
-      <Button
-        isLoading={isLoading}
-        textColor="#17161E"
-        backgroundColor="#fffff"
-        buttonText="Agregar gasto"
-      />
+      <div className={styles.buttonsContainer}>
+        {onCancel && !isLoading && (
+          <Button
+            onClick={onCancel}
+            textColor="#ffffff"
+            backgroundColor="rgba(252, 59, 59, 0.5)"
+            buttonText="Cancelar"
+          />
+        )}
+
+        <Button
+          isLoading={isLoading}
+          textColor="#17161E"
+          backgroundColor="#fffff"
+          buttonText={textSubmitButton}
+        />
+      </div>
     </form>
   );
 };

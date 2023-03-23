@@ -6,9 +6,11 @@ import styles from "./styles.module.scss";
 export const Options = ({
   deleteExpense,
   isLoadingDeleteExpense,
+  handleEdit,
 }: {
   deleteExpense: any;
   isLoadingDeleteExpense: boolean;
+  handleEdit: any;
 }) => {
   const [modal, setModal] = useState(false);
 
@@ -19,7 +21,7 @@ export const Options = ({
         <div onMouseLeave={() => setModal(false)} className={styles.modal}>
           {!isLoadingDeleteExpense ? (
             <>
-              <Svg1 />
+              <Svg1 onClick={handleEdit} />
               <Svg2 onClick={deleteExpense} />
             </>
           ) : (
