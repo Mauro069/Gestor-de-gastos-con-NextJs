@@ -50,8 +50,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
       const { expenseId, description, hour, type, amount } = req.body.data;
 
-      console.log("BODY =>", req.body )
-      console.log({ expenseId, description, hour, type, amount });
       await db.connect();
       if (isValidObjectId(expenseId)) {
         const existExpense = await Expense.findById(expenseId);

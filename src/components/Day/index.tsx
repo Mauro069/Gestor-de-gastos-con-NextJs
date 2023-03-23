@@ -15,8 +15,6 @@ export const Day = ({ day, expenses, dayName }: any) => {
   //@ts-ignore
   let todayNumber = today?.split("-")[0];
 
-  console.log({ onlyDay, todayNumber });
-
   return (
     <Link
       className={
