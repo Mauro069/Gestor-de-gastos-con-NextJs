@@ -36,17 +36,6 @@ export const ExpenseItem = ({
   const onEdit = async (...props: any) => {
     const [values, { type }] = props;
 
-    console.log(
-      values.description,
-      expense.description,
-      values.amount,
-      expense.amount,
-      values.time,
-      expense.hour,
-      type._id,
-      expense.type
-    );
-
     if (
       values.description !== expense.description ||
       values.amount !== expense.amount ||
