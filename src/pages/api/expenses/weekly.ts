@@ -11,7 +11,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
       const { daysBody: days, prevWeekStart, prevWeekEnd } = req.body;
-      console.log({ days, prevWeekStart, prevWeekEnd });
 
       const { gdi_cookie } = req.cookies;
       const cookie = verify(gdi_cookie!, process.env.JWT_SECRET!);
