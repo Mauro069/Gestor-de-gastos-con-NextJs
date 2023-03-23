@@ -16,7 +16,7 @@ import NotificationContext from "@/context/notificationContext";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DayDetailPage = (): JSX.Element => {
-  const { query } = useRouter();
+  const { query, back } = useRouter();
   const {
     expenses,
     todayExpensesAmount,
@@ -135,7 +135,7 @@ const DayDetailPage = (): JSX.Element => {
       <div className={styles.topContainer}>
         <div className={styles.welcomeContainer}>
           <small>
-            {query?.day} <Link href="/home">Regresar</Link>
+            {query?.day} <a onClick={back}>Regresar</a>
           </small>
 
           <span className={styles.welcome}>{query?.nameDay}</span>

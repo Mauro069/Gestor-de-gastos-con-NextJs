@@ -13,7 +13,9 @@ export const Day = ({ day, expenses, dayName }: any) => {
   const { data } = useExpenseTypeById(ids);
   let onlyDay = day?.split("-")[0];
   //@ts-ignore
-  let todayNumber = today?.split("/")[0];
+  let todayNumber = today?.split("-")[0];
+
+  console.log({ onlyDay, todayNumber });
 
   return (
     <Link
@@ -29,7 +31,7 @@ export const Day = ({ day, expenses, dayName }: any) => {
           data
             ?.slice(0, 3)
             .map((type: IExpenseType) => (
-              <ExpenseType key={type.createdAt} type={type} />
+              <ExpenseType key={type._id} type={type} />
             ))}
       </div>
     </Link>
