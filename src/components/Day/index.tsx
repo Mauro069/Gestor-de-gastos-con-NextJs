@@ -1,6 +1,7 @@
 import useExpenseTypeById from "@/hooks/useExpenseTypeById";
 import { nameOfsDays } from "@/utils/monthsAndDays";
 import { IExpense, IExpenseType } from "@/models";
+import { ExpenseType } from "../ExpenseType";
 import { useWeekPicker } from "@/hooks";
 import Link from "next/link";
 
@@ -25,11 +26,11 @@ export const Day = ({ day, expenses, dayName }: any) => {
       <div className={styles.dayNumber}>{onlyDay}</div>
       <div className={styles.expenses}>
         {data?.length > 0 &&
-          data?.slice(0, 3).map((type: IExpenseType) => (
-            <span style={{ background: `#${type?.color}50` }} key={type._id}>
-              {type?.name}
-            </span>
-          ))}
+          data
+            ?.slice(0, 3)
+            .map((type: IExpenseType) => (
+              <ExpenseType key={type.createdAt} type={type} />
+            ))}
       </div>
     </Link>
   );

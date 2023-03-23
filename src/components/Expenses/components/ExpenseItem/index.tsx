@@ -1,3 +1,4 @@
+import { ExpenseType } from "@/components/ExpenseType";
 import { withPoints } from "@/utils/withPoints";
 import { IExpense } from "@/models";
 import { Options } from "../Options";
@@ -24,18 +25,7 @@ export const ExpenseItem = ({
           <div className={styles.item}>{expense?.hour}</div>
           <div className={styles.item}>{withPoints(expense?.amount)}</div>
           <div className={styles.item}>
-            <span
-              className={styles.type}
-              style={{
-                // @ts-ignore
-                background: `#${expense?.type?.color}25`,
-                // @ts-ignore
-                color: `#${expense?.type?.color}`,
-              }}
-            >
-              {/* @ts-ignore */}
-              {expense?.type?.name}
-            </span>
+            <ExpenseType expense={expense} />
           </div>
           <div className={styles.item}>-</div>
           <div className={styles.item}>{expense?.description}</div>
