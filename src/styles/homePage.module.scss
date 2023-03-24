@@ -176,6 +176,16 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+
+      .col {
+        .maxExpense {
+          width: fit-content;
+          max-width: 90vw;
+          .flex {
+            flex-wrap: wrap;
+          }
+        }
+      }
     }
 
     .week {
