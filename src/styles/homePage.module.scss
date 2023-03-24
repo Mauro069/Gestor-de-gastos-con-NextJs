@@ -172,6 +172,12 @@
   .pageContainer {
     padding: 2rem 1rem;
 
+    .topContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
     .week {
       display: flex;
       flex-wrap: wrap;
