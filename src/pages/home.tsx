@@ -72,28 +72,40 @@ const HomePage = (): JSX.Element => {
         <div className={styles.col}>
           <div className={styles.maxExpense}>
             <span>Dinero gastado este mes:</span>
-            <p>${withPoints(monthlyExpenses!?.totalAmount)}</p>
-            <div
-              style={{
-                background: validatePercentage(
-                  monthlyExpenses!?.percentage,
-                  "#FF0000",
-                  "#01BB1F",
-                  "#FCC70A"
-                ),
-              }}
-              className={styles.percentage}
-            >
-              {withPoints(monthlyExpenses!?.percentage)}%
-            </div>
+            {!isLoadingMonthlyExpenses ? (
+              <>
+                <p>${withPoints(monthlyExpenses!?.totalAmount)}</p>
+                <div
+                  style={{
+                    background: validatePercentage(
+                      monthlyExpenses!?.percentage,
+                      "#FF0000",
+                      "#01BB1F",
+                      "#FCC70A"
+                    ),
+                  }}
+                  className={styles.percentage}
+                >
+                  {withPoints(monthlyExpenses!?.percentage)}%
+                </div>
+              </>
+            ) : (
+              <Loader />
+            )}
           </div>
           <div className={styles.maxExpense}>
             <span>Gasto importante del mes:</span>
 
-            <div className={styles.flex}>
-              <p>${withPoints(monthlyExpenses!?.maxExpenseAmount)}</p>
-              {monthlyType?.length > 0 && <ExpenseType type={monthlyType[0]} />}
-            </div>
+            {!isLoadingMonthlyExpenses ? (
+              <div className={styles.flex}>
+                <p>${withPoints(monthlyExpenses!?.maxExpenseAmount)}</p>
+                {monthlyType?.length > 0 && (
+                  <ExpenseType type={monthlyType[0]} />
+                )}
+              </div>
+            ) : (
+              <Loader />
+            )}
           </div>
         </div>
       </div>
