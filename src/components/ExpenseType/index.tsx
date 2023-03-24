@@ -9,7 +9,9 @@ export const ExpenseType = ({
   expense?: IExpense;
   type?: IExpenseType;
 }) => {
-  return (
+  console.log({ expense, type });
+
+  return expense || type ? (
     <span
       className={styles.type}
       style={{
@@ -22,5 +24,5 @@ export const ExpenseType = ({
       {/* @ts-ignore */}
       {expense?.type?.name || type?.name}
     </span>
-  );
+  ) : null;
 };

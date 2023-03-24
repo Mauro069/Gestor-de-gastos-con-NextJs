@@ -2,9 +2,11 @@ import { useAuth, useWeeklyExpenses, useWeekPicker } from "@/hooks";
 import { validatePercentage } from "@/utils/validatePercentage";
 import { months, nameOfsDays } from "@/utils/monthsAndDays";
 import { withPoints } from "@/utils/withPoints";
-import { Day, Loader } from "@/components";
+import { Day, ExpenseType, Loader } from "@/components";
 
 import styles from "../styles/homePage.module.scss";
+import useMonthlyExpenses from "@/hooks/useMonthlyExpenses";
+import useExpenseTypesQuery from "@/hooks/useExpenseTypeById";
 
 const HomePage = (): JSX.Element => {
   const {
@@ -22,26 +24,59 @@ const HomePage = (): JSX.Element => {
     prevWeekStart
   );
 
+  const {
+    data: monthlyExpenses,
+    isLoading: isLoadingMonthlyExpenses,
+    // @ts-ignore
+  } = useMonthlyExpenses(week?.format("YYYY-MM"));
+
+  const { data: monthlyType } = useExpenseTypesQuery(
+    monthlyExpenses!?.maxExpenseType ? [monthlyExpenses!?.maxExpenseType] : []
+  );
+  console.log({ monthlyType });
+
   return (
     <div className={styles.pageContainer}>
-      <div className={styles.welcomeContainer}>
-        <span className={styles.welcome}>
-          Hola, <b>{user?.firstname}!</b>
-        </span>
-        <div className={styles.expensesAmountContainer}>
-          <span className={styles.subtitle}>
-            {validatePercentage(
-              data?.percentage,
-              "Esta semana gastaste más que la semana anterior",
-              "Esta semana gastaste menos que la semana anterior"
-            )}
+      <div className={styles.topContainer}>
+        <div className={styles.welcomeContainer}>
+          <span className={styles.welcome}>
+            Hola, <b>{user?.firstname}!</b>
           </span>
-          <div className={styles.expensesAmount}>
-            <h1>${withPoints(data?.thisWeekExpensesAmount)}</h1>{" "}
+          <div className={styles.expensesAmountContainer}>
+            <span className={styles.subtitle}>
+              {validatePercentage(
+                data?.percentage,
+                "Esta semana gastaste más que la semana anterior",
+                "Esta semana gastaste menos que la semana anterior"
+              )}
+            </span>
+            <div className={styles.expensesAmount}>
+              <h1>${withPoints(data?.thisWeekExpensesAmount)}</h1>{" "}
+              <div
+                style={{
+                  background: validatePercentage(
+                    data?.percentage,
+                    "#FF0000",
+                    "#01BB1F",
+                    "#FCC70A"
+                  ),
+                }}
+                className={styles.percentage}
+              >
+                {withPoints(data?.percentage)}%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.col}>
+          <div className={styles.maxExpense}>
+            <span>Dinero gastado este mes:</span>
+            <p>${withPoints(monthlyExpenses!?.totalAmount)}</p>
             <div
               style={{
                 background: validatePercentage(
-                  data?.percentage,
+                  monthlyExpenses!?.percentage,
                   "#FF0000",
                   "#01BB1F",
                   "#FCC70A"
@@ -49,7 +84,15 @@ const HomePage = (): JSX.Element => {
               }}
               className={styles.percentage}
             >
-              {withPoints(data?.percentage)}%
+              {withPoints(monthlyExpenses!?.percentage)}%
+            </div>
+          </div>
+          <div className={styles.maxExpense}>
+            <span>Gasto importante del mes:</span>
+
+            <div className={styles.flex}>
+              <p>${withPoints(monthlyExpenses!?.maxExpenseAmount)}</p>
+              {monthlyType?.length > 0 && <ExpenseType type={monthlyType[0]} />}
             </div>
           </div>
         </div>

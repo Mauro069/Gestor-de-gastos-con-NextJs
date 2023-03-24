@@ -11,6 +11,44 @@
   color: white;
   padding: 3rem 5rem;
 
+  .topContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .maxExpense {
+        background-color: #2e2d34;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .flex {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        span {
+          font-size: 14px;
+          font-weight: 400;
+        }
+
+        p {
+          font-size: 32px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
   .welcomeContainer {
     display: flex;
     flex-direction: column;
@@ -44,20 +82,20 @@
           font-weight: bold;
           padding: 1rem;
         }
-
-        .percentage {
-          user-select: none;
-          position: absolute;
-          top: 0;
-          right: 0;
-          margin-top: -0.5rem;
-          margin-right: -1.5rem;
-          padding: 0.3rem;
-          border-radius: 3px;
-          font-weight: bold;
-        }
       }
     }
+  }
+
+  .percentage {
+    user-select: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: -0.5rem;
+    margin-right: -1.5rem;
+    padding: 0.3rem;
+    border-radius: 3px;
+    font-weight: bold;
   }
 
   .button {
