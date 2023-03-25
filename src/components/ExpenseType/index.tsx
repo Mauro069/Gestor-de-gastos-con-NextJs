@@ -9,8 +9,6 @@ export const ExpenseType = ({
   expense?: IExpense;
   type?: IExpenseType;
 }) => {
-  console.log({ expense, type });
-
   return expense || type ? (
     <span
       className={styles.type}

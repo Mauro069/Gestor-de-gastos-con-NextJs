@@ -33,7 +33,6 @@ const HomePage = (): JSX.Element => {
   const { data: monthlyType } = useExpenseTypesQuery(
     monthlyExpenses!?.maxExpenseType ? [monthlyExpenses!?.maxExpenseType] : []
   );
-  console.log({ monthlyType });
 
   return (
     <div className={styles.pageContainer}>
