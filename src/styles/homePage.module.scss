@@ -190,8 +190,18 @@
 
     .week {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      overflow-x: scroll;
+    }
+
+    .week::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+      background: #17161e;
+    }
+
+    .week::-webkit-scrollbar-thumb {
+      border-radius: 20px;
+      border: 1px solid #ffffff25;
     }
 
     .weekContainer {
