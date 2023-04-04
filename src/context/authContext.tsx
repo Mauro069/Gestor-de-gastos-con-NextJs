@@ -1,7 +1,8 @@
+import React, { createContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { routes } from "@/routes";
 import { IUser } from "@/models";
 import axios from "axios";
-import { useRouter } from "next/router";
-import React, { createContext, useEffect, useState } from "react";
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -40,7 +41,7 @@ export const AuthProvider: React.FC<{
             user,
           });
         } else {
-          router.push("/");
+          router.push(routes.login);
         }
       }
     };
@@ -59,7 +60,7 @@ export const AuthProvider: React.FC<{
         };
         localStorage.setItem("token", response.data.token);
         setAuthState(authData);
-        router.push("/home");
+        router.push(routes.home);
 
         return response.data;
       } else {
@@ -80,7 +81,7 @@ export const AuthProvider: React.FC<{
         };
         localStorage.setItem("token", response.data.token);
         setAuthState(authData);
-        router.push("/home");
+        router.push(routes.home);
 
         return response.data;
       }
@@ -95,7 +96,7 @@ export const AuthProvider: React.FC<{
       isLoggedIn: false,
       user: null,
     });
-    router.push("/");
+    router.push(routes.landing);
   };
 
   return (

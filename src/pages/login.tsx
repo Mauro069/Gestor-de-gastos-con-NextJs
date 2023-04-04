@@ -2,9 +2,11 @@ import NotificationContext from "@/context/notificationContext";
 import { useContext, useState } from "react";
 import { Button, Input } from "@/components";
 import { useAuth, useForm } from "@/hooks";
+import { routes } from "@/routes";
 import { IUser } from "@/models";
 import Image from "next/image";
 import Link from "next/link";
+
 import styles from "../styles/authPage.module.scss";
 
 export default function LoginPage() {
@@ -71,7 +73,7 @@ export default function LoginPage() {
             isLoading={loading}
           />
           <span className={styles.link}>
-            Aun no tienes cuenta? <Link href="/register">Registrate</Link>
+            Aun no tienes cuenta? <Link href={routes.register}>Registrate</Link>
           </span>
         </form>
       </div>
