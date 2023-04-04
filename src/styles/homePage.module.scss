@@ -191,6 +191,14 @@
       }
     }
 
+    .welcomeContainer {
+      .welcome {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+
     .week {
       display: flex;
       overflow-x: scroll;

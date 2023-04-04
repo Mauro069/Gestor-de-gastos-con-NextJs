@@ -38,15 +38,17 @@ const HomePage = (): JSX.Element => {
     <div className={styles.pageContainer}>
       <div className={styles.topContainer}>
         <div className={styles.welcomeContainer}>
-          <span className={styles.welcome}>
-            Hola, <b>{user?.firstname}!</b>{" "}
+          <div className={styles.welcome}>
+            <span>
+              Hola, <b>{user?.firstname}!</b>{" "}
+            </span>
             <Button
               textColor="white"
               buttonText="Cerrar Sesión"
               backgroundColor="#ffffff25"
               onClick={logout}
             />
-          </span>
+          </div>
           <div className={styles.expensesAmountContainer}>
             <span className={styles.subtitle}>
               {validatePercentage(
