@@ -96,7 +96,7 @@ export const AuthProvider: React.FC<{
       isLoggedIn: false,
       user: null,
     });
-    router.push(routes.landing);
+    router.push(routes.login);
   };
 
   return (

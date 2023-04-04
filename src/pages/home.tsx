@@ -2,7 +2,7 @@ import { useAuth, useWeeklyExpenses, useWeekPicker } from "@/hooks";
 import { validatePercentage } from "@/utils/validatePercentage";
 import { months, nameOfsDays } from "@/utils/monthsAndDays";
 import { withPoints } from "@/utils/withPoints";
-import { Day, ExpenseType, Loader } from "@/components";
+import { Button, Day, ExpenseType, Loader } from "@/components";
 
 import styles from "../styles/homePage.module.scss";
 import useMonthlyExpenses from "@/hooks/useMonthlyExpenses";
@@ -17,7 +17,7 @@ const HomePage = (): JSX.Element => {
     prevWeekEnd,
     prevWeekStart,
   } = useWeekPicker();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { isLoading, data }: any = useWeeklyExpenses(
     days,
     prevWeekEnd,
@@ -39,7 +39,13 @@ const HomePage = (): JSX.Element => {
       <div className={styles.topContainer}>
         <div className={styles.welcomeContainer}>
           <span className={styles.welcome}>
-            Hola, <b>{user?.firstname}!</b>
+            Hola, <b>{user?.firstname}!</b>{" "}
+            <Button
+              textColor="white"
+              buttonText="Cerrar Sesión"
+              backgroundColor="#ffffff25"
+              onClick={logout}
+            />
           </span>
           <div className={styles.expensesAmountContainer}>
             <span className={styles.subtitle}>
