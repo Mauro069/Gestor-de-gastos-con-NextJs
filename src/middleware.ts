@@ -21,5 +21,5 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: [routes.home, "/day/:day*"],
+  matcher: ["/home", "/day/:day*"],
 };
