@@ -56,6 +56,9 @@
 
     .welcome {
       font-size: 48px;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
     }
 
     .expensesAmountContainer {
@@ -185,6 +188,14 @@
             flex-wrap: wrap;
           }
         }
+      }
+    }
+
+    .welcomeContainer {
+      .welcome {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        flex-wrap: wrap;
       }
     }
 

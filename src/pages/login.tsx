@@ -1,7 +1,8 @@
 import NotificationContext from "@/context/notificationContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Input } from "@/components";
 import { useAuth, useForm } from "@/hooks";
+import { useRouter } from "next/router";
 import { routes } from "@/routes";
 import { IUser } from "@/models";
 import Image from "next/image";
@@ -10,9 +11,10 @@ import Link from "next/link";
 import styles from "../styles/authPage.module.scss";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { login, isLoggedIn } = useAuth();
   const { showNotification } = useContext(NotificationContext);
   const { values, handleChange, handleSubmit } = useForm<IUser>({
     initialValues: {
@@ -44,6 +46,12 @@ export default function LoginPage() {
       setLoading(false);
     },
   });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push(routes.home);
+    }
+  }, [isLoggedIn, router]);
 
   return (
     <div className={styles.authPage}>
