@@ -42,12 +42,7 @@ const HomePage = (): JSX.Element => {
             <span>
               Hola, <b>{user?.firstname}!</b>{" "}
             </span>
-            <Button
-              textColor="white"
-              buttonText="Cerrar Sesión"
-              backgroundColor="#ffffff25"
-              onClick={logout}
-            />
+            {/* Agregar boton de logout */}
           </div>
           <div className={styles.expensesAmountContainer}>
             <span className={styles.subtitle}>
