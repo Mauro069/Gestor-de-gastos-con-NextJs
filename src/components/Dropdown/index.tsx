@@ -38,9 +38,9 @@ export const Dropdown = ({
       </div>
       {open && (
         <div className={styles.options}>
-          {options.map((option: IExpenseType) => (
+          {options?.map((option: IExpenseType) => (
             <div
-              key={option._id}
+              key={option?._id}
               className={styles.option}
               onClick={() => {
                 setOpen(false);
@@ -49,9 +49,9 @@ export const Dropdown = ({
             >
               <p
                 className={styles.expenseType}
-                style={{ background: `#${option.color}50` }}
+                style={{ background: `#${option?.color}50` }}
               >
-                <span>{option.name}</span>
+                <span>{option?.name}</span>
               </p>
             </div>
           ))}
