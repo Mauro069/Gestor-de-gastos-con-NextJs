@@ -1,13 +1,9 @@
-@font-face {
-  font-family: "Rubik";
-  src: url("../../public/fonts/Rubik-VariableFont_wght.ttf");
-}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
-  user-select: none;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   outline: none;
-  font-family: "Rubik", sans-serif;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }

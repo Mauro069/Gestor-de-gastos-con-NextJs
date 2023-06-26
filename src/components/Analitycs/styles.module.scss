@@ -1,0 +1,68 @@
+.analitycsContainer {
+  margin-top: 30px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.analitycsItem {
+  background-color: #f6f6f6;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  border-radius: 8px;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    p {
+      color: #757575;
+      font-size: 14px;
+      font-weight: medium;
+    }
+
+    span {
+      color: #757575;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  }
+
+  .percentage {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: fit-content;
+    padding: 4px 7px;
+    border-radius: 12px;
+    font-size: 14px;
+
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    &.less {
+      background-color: #fad1d1;
+      color: #780404;
+
+      svg {
+        transform: rotate(-135deg);
+      }
+    }
+
+    &.high {
+      background-color: #d1fae5;
+      color: #047857;
+
+      svg {
+        transform: rotate(45deg);
+      }
+    }
+  }
+}

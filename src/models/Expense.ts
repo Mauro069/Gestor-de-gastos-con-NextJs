@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, ObjectId } from "mongoose";
+import mongoose, { Schema, ObjectId } from "mongoose";
 import { IExpenseType } from "./ExpenseType";
 import { IUser } from "./User";
 

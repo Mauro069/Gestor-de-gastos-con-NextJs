@@ -1,3 +1,5 @@
+export * from './ActivitiesList';
+export * from './ActivityItem';
 export * from './Button';
 export * from './Day';
 export * from './Dropdown';
@@ -5,6 +7,8 @@ export * from './Expenses';
 export * from './ExpenseType';
 export * from './Forms';
 export * from './Input';
+export * from './Layout';
 export * from './Loader';
 export * from './Notification';
 export * from './Pagination';
+export * from './Sidebar';

@@ -1,0 +1,73 @@
+.activitiesList {
+  background-color: white;
+  padding: 26px 32px;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 12px;
+  transition-duration: .3s;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .expand {
+      background-color: #F6F6F6;
+      padding: 5px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition-duration: .3s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  th {
+    color: #484848;
+  }
+
+  .subtitles {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    th {
+      font-size: 16px;
+      text-align: left;
+    }
+
+    th:nth-child(1) {
+      width: 15%;
+    }
+
+    th:nth-child(2) {
+      width: 25%;
+    }
+
+    th:nth-child(3) {
+      width: 20%;
+    }
+
+    th:nth-child(4) {
+      width: 20%;
+    }
+
+    th:nth-child(5) {
+      width: 20%;
+    }
+  }
+
+  .activities {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

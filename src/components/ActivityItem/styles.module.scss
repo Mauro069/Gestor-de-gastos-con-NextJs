@@ -1,0 +1,54 @@
+.activityItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d9d9d9;
+
+  td {
+    text-transform: capitalize;
+    color: #484848;
+    font-size: 14px;
+  }
+
+  td:nth-child(1) {
+    width: 15%;
+  }
+
+  td:nth-child(2) {
+    width: 25%;
+  }
+
+  td:nth-child(3) {
+    width: 20%;
+  }
+
+  td:nth-child(4) {
+    width: 20%;
+  }
+
+  td:nth-child(5) {
+    width: 20%;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.item {
+  width: fit-content;
+  padding: 5px;
+  border-radius: 4px;
+
+  &.expense {
+    background-color: #FAD1D1;
+    color: #780404;
+  }
+
+  &.entry {
+    background-color: #d1fae5;
+    color: #047857;
+  }
+}

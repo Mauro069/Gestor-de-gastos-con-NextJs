@@ -1,0 +1,84 @@
+.sidebar {
+  position: sticky;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 92px;
+  background-color: white;
+  border-radius: 0px 16px 16px 0px;
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition-duration: 0.3s;
+
+  .imageContainer {
+    position: relative;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f6f6f6;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    img {
+      border-radius: 100%;
+    }
+
+    .welcome {
+      transition-duration: .3s;
+      font-weight: 600;
+
+      p {
+        color: #757575;
+        font-size: 12px;
+      }
+
+      span {
+        font-size: 16px;
+        color: black;
+        white-space: nowrap;
+      }
+    }
+
+    .unionButton {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      margin-right: -40px;
+
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid #f6f6f6;
+      background-color: white;
+      transition-duration: 0.3s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 30px;
+    gap: 12px;
+  }
+
+  .bottom {
+    border-top: 2px solid #f6f6f6;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &.open {
+    width: 256px;
+  }
+}

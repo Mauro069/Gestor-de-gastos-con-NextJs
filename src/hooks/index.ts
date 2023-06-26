@@ -1,3 +1,4 @@
+export * from './useActivities';
 export * from './useAuth';
 export * from './useExpenses';
 export * from './useExpenseTypeById';

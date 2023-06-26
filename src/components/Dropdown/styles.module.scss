@@ -15,18 +15,27 @@
     width: 100%;
     color: white;
     height: 40px;
-    background: #2e2d34;
+    background: #f6f6f6;
     border: none;
     border-radius: 10px;
     font-size: 14px;
     height: 40px;
-    padding: 0 1rem;
+    padding: 0 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    .withOpacity {
-      color: #ffffff30;
+    .placeholder {
+      background-color: #b1b1b1;
+      color: white;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    svg {
+      path {
+        fill: #000000;
+      }
     }
 
     .svg {
@@ -69,10 +78,11 @@
       font-size: 14px;
       color: white;
       text-decoration: none;
-      background: #2e2d34;
+      background: #f6f6f6;
       padding: 10px 1rem;
       font-weight: normal;
       border-bottom: 1px solid #ffffff10;
+      transition-duration: 0.3s;
     }
 
     .option:last-child {
@@ -80,18 +90,17 @@
     }
 
     .option:hover {
-      transition-duration: 0.3s;
-      font-weight: bold;
+      font-weight: 600;
     }
   }
 
   .options::-webkit-scrollbar {
     width: 2px;
-    background: #251f2b;
+    background: #f6f6f6;
   }
 
   .options::-webkit-scrollbar-thumb {
     border-radius: 20px;
-    border: 3px solid #ffffff25;
+    border: 3px solid #f6f6f6;
   }
 }

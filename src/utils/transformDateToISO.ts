@@ -1,7 +1,8 @@
 export const transformDateToISO = (date: any, type: "start" | "end") => {
   if (date) {
+    // 06-03-2023
     // { day: '06', month: '03', year: '2023' }
-    const [day, month, year] = date.split("-");
+    const [year, month, day] = date.split("-");
 
     if (type === "end") {
       return `${year}-${month}-${day}T23:59:59.999Z`;

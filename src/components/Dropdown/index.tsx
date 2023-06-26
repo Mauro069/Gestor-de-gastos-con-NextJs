@@ -1,12 +1,18 @@
-import { IExpenseType } from "@/models";
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
+export interface IOption {
+  _id?: string | number;
+  name: string;
+  bgColor: string;
+  color: string;
+}
+
 interface Props {
   placeholder: string;
-  options: IExpenseType[];
-  onSelect: (optionSelected: IExpenseType) => void;
-  optionSelected: IExpenseType | null;
+  options: IOption[];
+  onSelect: (optionSelected: IOption) => void;
+  optionSelected: IOption | null;
 }
 
 export const Dropdown = ({
@@ -16,6 +22,12 @@ export const Dropdown = ({
   optionSelected,
 }: Props) => {
   const [open, setOpen] = useState(false);
+  const optionStyle = (option: IOption) => {
+    return {
+      background: option.bgColor,
+      color: option.color,
+    };
+  };
 
   return (
     <div className={styles.selectContainer}>
@@ -24,33 +36,27 @@ export const Dropdown = ({
         className={open ? styles.selectActive : styles.select}
       >
         {optionSelected?.name ? (
-          <p
-            className={styles.expenseType}
-            style={{ background: `#${optionSelected.color}50` }}
-          >
+          <p className={styles.expenseType} style={optionStyle(optionSelected)}>
             <span>{optionSelected.name}</span>
           </p>
         ) : (
-          <span className={styles.withOpacity}>{placeholder}</span>
+          <span className={styles.placeholder}>{placeholder}</span>
         )}
 
         <Svg open={open} />
       </div>
       {open && (
         <div className={styles.options}>
-          {options.map((option: IExpenseType) => (
+          {options.map((option: IOption) => (
             <div
-              key={option._id}
+              key={option._id || option.name}
               className={styles.option}
               onClick={() => {
                 setOpen(false);
                 onSelect(option);
               }}
             >
-              <p
-                className={styles.expenseType}
-                style={{ background: `#${option.color}50` }}
-              >
+              <p className={styles.expenseType} style={optionStyle(option)}>
                 <span>{option.name}</span>
               </p>
             </div>
